@@ -1,4 +1,4 @@
-package com.example.stock.categoryapplication;
+package com.example.stock.categoryapplicationtest;
 
 
 import com.example.stock.application.category.command.CategoryCreateHandler;

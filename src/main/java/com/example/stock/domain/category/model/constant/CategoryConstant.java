@@ -3,5 +3,5 @@ public class CategoryConstant {
     private CategoryConstant() {
         throw new IllegalStateException("Utility class");
     }
-    public static final String TASK_NOT_FOUND_MESSAGE_ERROR = "No se encontro una Categoria con el id %s";
+    public static final String TASK_NOT_FOUND_MESSAGE_ERROR = "No found Category with id %s";
 }

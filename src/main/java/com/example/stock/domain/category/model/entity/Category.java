@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class Category {
-    private CategoryId id;
+    private Long id;
     private CategoryName name;
     private CategoryDescription description;
 
     public Category(Long id, String name, String description) {
-        this.id = new CategoryId(id);
+        this.id = id;
         this.name = new CategoryName(name);
         this.description = new CategoryDescription(description);
     }
@@ -22,10 +22,6 @@ public class Category {
         this.description = new CategoryDescription(categoryCreateCommand.getDescription());
         return this;
     }
-    public Long getId() {
-        return id.getId();
-    }
-
     public String getName() {
         return name.getName();
     }

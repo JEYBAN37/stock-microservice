@@ -6,8 +6,6 @@ import com.example.stock.domain.category.model.dto.CategoryDto;
 import com.example.stock.domain.category.port.dao.CategoryDao;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class CategoryByName {
     private final CategoryDao categoryDao;
