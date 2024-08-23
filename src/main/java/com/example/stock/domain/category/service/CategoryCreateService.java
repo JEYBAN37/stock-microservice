@@ -16,7 +16,7 @@ public class CategoryCreateService {
         this.categoryDao = categoryDao;
     }
 
-    private static final String MESSAGE_ERROR_ADD = "Category Exist";
+    private static final String MESSAGE_ERROR_ADD = "Brand Exist";
     public Category execute (CategoryCreateCommand categoryCreateCommand){
         if (categoryDao.nameExist(categoryCreateCommand.getName()))
             throw new CategoryException(MESSAGE_ERROR_ADD);

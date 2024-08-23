@@ -1,11 +1,11 @@
-package com.example.stock.instance;
+package com.example.stock.brand.branddoamintest.instance;
 
 
 import com.example.stock.application.category.mapper.CategoryDtoMapper;
 import com.example.stock.domain.category.model.dto.CategoryDto;
 import com.example.stock.domain.category.model.entity.Category;
 
-public class CategoryDtoMapperInstance implements CategoryDtoMapper {
+public class BrandDtoMapperInstance implements CategoryDtoMapper {
     @Override
     public CategoryDto toDto(Category domain) {
         if (domain == null) {

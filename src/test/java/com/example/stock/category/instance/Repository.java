@@ -1,4 +1,4 @@
-package com.example.stock.instance;
+package com.example.stock.category.instance;
 
 
 import com.example.stock.domain.category.model.entity.Category;

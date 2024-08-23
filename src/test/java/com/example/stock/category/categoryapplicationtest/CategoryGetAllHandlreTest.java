@@ -1,4 +1,4 @@
-package com.example.stock.categoryapplicationtest;
+package com.example.stock.category.categoryapplicationtest;
 
 import com.example.stock.application.category.mapper.CategoryDtoMapper;
 import com.example.stock.application.category.query.CategoryAllHandler;
@@ -32,11 +32,11 @@ import static org.mockito.Mockito.when;
     @Test
     void execute_shouldReturnListOfCategoryDtos() {
         // arrange
-        Category category1 = new Category(1L, "Category 1", "Description 1");
-        Category category2 = new Category(2L, "Category 2", "Description 2");
+        Category category1 = new Category(1L, "Brand 1", "Description 1");
+        Category category2 = new Category(2L, "Brand 2", "Description 2");
 
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category 1", "Description 1");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category 2", "Description 2");
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand 1", "Description 1");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand 2", "Description 2");
 
         List<Category> mockCategories = List.of(category1, category2);
         List<CategoryDto> expectedDtos = List.of(categoryDto1, categoryDto2);
@@ -53,11 +53,11 @@ import static org.mockito.Mockito.when;
     @Test
     void execute_shouldReturnCategoriesInDescendingOrder() {
         // arrange
-        Category category1 = new Category(1L, "Category A", "Description A");
-        Category category2 = new Category(2L, "Category B", "Description B");
+        Category category1 = new Category(1L, "Brand A", "Description A");
+        Category category2 = new Category(2L, "Brand B", "Description B");
 
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand B", "Description B");
 
         List<Category> mockCategories = List.of(category2, category1); // Lista en orden original
         List<CategoryDto> expectedDtos = List.of(categoryDto2, categoryDto1); // Esperamos en orden descendente

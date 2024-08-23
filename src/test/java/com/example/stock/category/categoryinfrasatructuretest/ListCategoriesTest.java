@@ -1,4 +1,4 @@
-package com.example.stock.categoryinfrasatructuretest;
+package com.example.stock.category.categoryinfrasatructuretest;
 
 import com.example.stock.application.category.query.CategoryAllHandler;
 import com.example.stock.domain.category.model.dto.CategoryDto;
@@ -28,8 +28,8 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnCategories() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category 1", "Description 1");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category 2", "Description 2");
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand 1", "Description 1");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand 2", "Description 2");
         List<CategoryDto> expectedCategories = List.of(categoryDto1, categoryDto2);
         when(categoryAllHandler.execute(0, 10, false)).thenReturn(expectedCategories);
         // act
@@ -51,8 +51,8 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnCategoriesInDescendingOrder() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand B", "Description B");
         List<CategoryDto> expectedCategories = List.of(categoryDto2, categoryDto1); // Esperado en orden descendente
         when(categoryAllHandler.execute(0, 10, true)).thenReturn(List.of(categoryDto1, categoryDto2)); // Orden natural
         // Act

@@ -1,4 +1,4 @@
-package com.example.stock.categoryinfrasatructuretest;
+package com.example.stock.category.categoryinfrasatructuretest;
 
 import com.example.stock.application.category.command.CategoryCreateHandler;
 import com.example.stock.domain.category.model.dto.CategoryDto;
@@ -34,10 +34,10 @@ public class CreateCategoryTest {
         // arrange
         CategoryDto mockCategoryDto = new CategoryDto();
         mockCategoryDto.setId(1L);
-        mockCategoryDto.setName("Test Category");
+        mockCategoryDto.setName("Test Brand");
         mockCategoryDto.setDescription("This is a test category");
         CategoryCreateCommand mockCreateCommand = new CategoryCreateCommand();
-        mockCreateCommand.setName("Test Category");
+        mockCreateCommand.setName("Test Brand");
         mockCreateCommand.setDescription("This is a test category");
         when(categoryCreateHandler.execute(any(CategoryCreateCommand.class))).thenReturn(mockCategoryDto);
         // act
@@ -52,10 +52,10 @@ public class CreateCategoryTest {
     void createCategory_whenNameExist_shouldThrowsCategoryException() {
         // arrange
         CategoryCreateCommand mockCreateCommand = new CategoryCreateCommand();
-        mockCreateCommand.setName("Existing Category Name");
+        mockCreateCommand.setName("Existing Brand Name");
         mockCreateCommand.setDescription("This is a test category");
         when(categoryCreateHandler.execute(any(CategoryCreateCommand.class)))
-                .thenThrow(new CategoryException("Category with this name already exists"));
+                .thenThrow(new CategoryException("Brand with this name already exists"));
         // act & Assert
         assertThrows(CategoryException.class, () -> {
             categoryCommandController.create(mockCreateCommand);

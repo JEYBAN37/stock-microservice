@@ -1,9 +1,9 @@
-package com.example.stock.categorydoamintest;
+package com.example.stock.category.categorydoamintest;
 
 
 
-import com.example.stock.instance.Dao;
-import com.example.stock.instance.Repository;
+import com.example.stock.category.instance.Dao;
+import com.example.stock.category.instance.Repository;
 import com.example.stock.domain.category.model.dto.command.CategoryEditCommand;
 import com.example.stock.domain.category.model.entity.Category;
 import com.example.stock.domain.category.model.exception.CategoryException;
@@ -62,7 +62,7 @@ class CategoryUpdateServiceTest {
             categoryUpdateService.execute(command, 5L);
         });
         // assert
-        assertEquals("Category No Exist", exception.getErrorMessage());
+        assertEquals("Brand No Exist", exception.getErrorMessage());
     }
     @Test
     void updateCategory_whenEmptyName_shouldThrowsCategoryException() {

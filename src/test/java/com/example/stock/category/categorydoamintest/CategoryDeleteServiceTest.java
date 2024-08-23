@@ -1,8 +1,8 @@
-package com.example.stock.categorydoamintest;
+package com.example.stock.category.categorydoamintest;
 
 
-import com.example.stock.instance.Dao;
-import com.example.stock.instance.Repository;
+import com.example.stock.category.instance.Dao;
+import com.example.stock.category.instance.Repository;
 import com.example.stock.domain.category.model.dto.CategoryDto;
 import com.example.stock.domain.category.model.entity.Category;
 import com.example.stock.domain.category.model.exception.CategoryException;

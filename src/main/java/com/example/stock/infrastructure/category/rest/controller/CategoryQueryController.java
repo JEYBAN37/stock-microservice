@@ -23,7 +23,7 @@ public class CategoryQueryController {
     private final CategoryByName categoryByName;
 
 
-    @Operation(summary = "Get Category by name")
+    @Operation(summary = "Get Brand by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "category returned",
                     content = @Content(mediaType = "application/json",

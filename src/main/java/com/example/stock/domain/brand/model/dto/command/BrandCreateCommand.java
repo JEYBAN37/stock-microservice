@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class CategoryEditCommand {
+public class BrandCreateCommand {
     private String name;
     private String description;
 }
