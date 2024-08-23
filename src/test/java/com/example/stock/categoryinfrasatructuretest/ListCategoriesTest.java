@@ -27,44 +27,36 @@ class ListCategoriesTest {
     }
     @Test
     void getAll_shouldReturnCategories() {
-        // Arrange
+        // arrange
         CategoryDto categoryDto1 = new CategoryDto(1L, "Category 1", "Description 1");
         CategoryDto categoryDto2 = new CategoryDto(2L, "Category 2", "Description 2");
         List<CategoryDto> expectedCategories = List.of(categoryDto1, categoryDto2);
-
         when(categoryAllHandler.execute(0, 10, false)).thenReturn(expectedCategories);
-
-        // Act
+        // act
         List<CategoryDto> result = categoryQueryController.getAll(0, 10, false);
-
-        // Assert
+        // assert
         assertEquals(expectedCategories, result);
     }
 
     @Test
     void getAll_shouldReturnEmptyListWhenNoCategories() {
-        // Arrange
+        // arrange
         when(categoryAllHandler.execute(0, 10, false)).thenReturn(List.of()); // Lista vacía
-
-        // Act
+        // act
         List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
-
-        // Assert
+        // assert
         assertEquals(0, result.size()); // Debe retornar una lista vacía
     }
 
     @Test
     void getAll_shouldReturnCategoriesInDescendingOrder() {
-        // Arrange
+        // arrange
         CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
         CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
         List<CategoryDto> expectedCategories = List.of(categoryDto2, categoryDto1); // Esperado en orden descendente
-
         when(categoryAllHandler.execute(0, 10, true)).thenReturn(List.of(categoryDto1, categoryDto2)); // Orden natural
-
         // Act
         List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
-
         // Assert
         assertEquals(expectedCategories.get(0).getName(), result.get(0).getName());
         assertEquals(expectedCategories.get(1).getName(), result.get(1).getName());
