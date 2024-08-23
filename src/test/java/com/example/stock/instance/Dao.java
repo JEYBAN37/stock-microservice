@@ -1,4 +1,4 @@
-package com.example.stock.categorydoamintest.instance;
+package com.example.stock.instance;
 
 
 
