@@ -106,4 +106,7 @@ class CategoryCreateHandlerTest {
         // assert
         assertEquals("Description don't be bigger than 90 characters", exception.getErrorMessage());
     }
+
+
+
 }

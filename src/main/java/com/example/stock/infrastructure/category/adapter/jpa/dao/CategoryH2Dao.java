@@ -8,6 +8,8 @@ import com.example.stock.infrastructure.category.adapter.entity.CategoryEntity;
 import com.example.stock.infrastructure.category.adapter.jpa.CategorySpringJpaAdapterRepository;
 import com.example.stock.infrastructure.category.adapter.mapper.CategoryDboMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -49,24 +51,9 @@ public class CategoryH2Dao implements CategoryDao {
     }
 
     @Override
-    public List<Category> getall() {
-        return categorySpringJpaAdapterRepository.findAll()
-                .stream()
-                .map(categoryDboMapper::toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<Category> getFilterAsc() {
-        return categorySpringJpaAdapterRepository.findAllByOrderByNameAsc()
-                .stream()
-                .map(categoryDboMapper::toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<Category> getFilterDsc() {
-        return categorySpringJpaAdapterRepository.findAllByOrderByNameDesc()
+    public List<Category> getAll( int page, int size, boolean ascending ) {
+        PageRequest pageRequest = PageRequest.of(page, size, ascending ? Sort.by("name").ascending() : Sort.by("name").descending());
+        return categorySpringJpaAdapterRepository.findAll(pageRequest)
                 .stream()
                 .map(categoryDboMapper::toDomain)
                 .toList();

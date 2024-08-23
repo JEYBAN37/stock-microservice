@@ -11,7 +11,6 @@ public interface CategoryDao {
     Category getById(Long id);
     boolean nameExist(String name);
     boolean idExist(Long id);
-    List<Category> getall();
-    List<Category> getFilterAsc();
-    List<Category> getFilterDsc();
+    List<Category> getAll(int page, int size, boolean ascending);
+
 }

@@ -1,12 +1,10 @@
 package com.example.stock.instance;
 
 
-
 import com.example.stock.domain.category.model.entity.Category;
 import com.example.stock.domain.category.port.dao.CategoryDao;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -39,19 +37,8 @@ public class Dao implements CategoryDao {
     }
 
     @Override
-    public List<Category> getall() {
+    public List<Category> getAll(int page, int size, boolean ascending) {
         return categoryList;
     }
 
-    @Override
-    public List<Category> getFilterAsc() {
-        return categoryList.stream().sorted().toList();
-    }
-
-    @Override
-    public List<Category> getFilterDsc() {
-        return categoryList.stream()
-                .sorted(Comparator.comparing(Category::getName).reversed())
-                .toList();
-    }
 }
