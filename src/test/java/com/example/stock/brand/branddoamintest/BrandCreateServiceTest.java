@@ -3,8 +3,8 @@ package com.example.stock.brand.branddoamintest;
 
 
 
-import com.example.stock.brand.branddoamintest.instance.Dao;
-import com.example.stock.brand.branddoamintest.instance.Repository;
+import com.example.stock.brand.instance.Dao;
+import com.example.stock.brand.instance.Repository;
 import com.example.stock.domain.brand.model.dto.command.BrandCreateCommand;
 import com.example.stock.domain.brand.model.entity.Brand;
 import com.example.stock.domain.brand.model.exception.BrandException;

@@ -1,4 +1,4 @@
-package com.example.stock.brand.branddoamintest.instance;
+package com.example.stock.brand.instance;
 
 
 

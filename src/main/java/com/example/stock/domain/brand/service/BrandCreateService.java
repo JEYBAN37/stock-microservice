@@ -10,14 +10,14 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class BrandCreateService {
-    private final BrandRepository categoryRepository;
-    private final BrandDao categoryDao;
+    private final BrandRepository brandRepository;
+    private final BrandDao brandDao;
 
     private static final String MESSAGE_ERROR_ADD = "Brand Exist";
     public Brand execute (BrandCreateCommand brandCreateCommand){
-        if (categoryDao.nameExist(brandCreateCommand.getName()))
+        if (brandDao.nameExist(brandCreateCommand.getName()))
             throw new BrandException(MESSAGE_ERROR_ADD);
-        Brand categoryToCreate = new Brand().requestToCreate(brandCreateCommand);
-        return categoryRepository.create(categoryToCreate);
+        Brand BrandToCreate = new Brand().requestToCreate(brandCreateCommand);
+        return brandRepository.create(BrandToCreate);
     }
 }
