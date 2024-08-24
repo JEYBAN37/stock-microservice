@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 class ListCategoriesTest {
 
@@ -41,24 +42,61 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnEmptyListWhenNoCategories() {
         // arrange
-        when(categoryAllHandler.execute(0, 10, false)).thenReturn(List.of()); // Lista vacía
+        when(categoryAllHandler.execute(0, 10, false)).thenReturn(List.of());
         // act
         List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
         // assert
-        assertEquals(0, result.size()); // Debe retornar una lista vacía
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    void getAll_shouldReturnCategoriesInAscendingOrder() {
+        // arrange
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        List<CategoryDto> expectedCategories = List.of(categoryDto1, categoryDto2);
+        when(categoryAllHandler.execute(0, 10, true)).thenReturn(expectedCategories);
+        // Act
+        List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
+        // Assert
+        assertEquals(expectedCategories, result);
+        assertEquals(expectedCategories.get(0).getName(), result.get(0).getName());
+        assertEquals(expectedCategories.get(1).getName(), result.get(1).getName());
     }
 
     @Test
     void getAll_shouldReturnCategoriesInDescendingOrder() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand A", "Description A");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand B", "Description B");
-        List<CategoryDto> expectedCategories = List.of(categoryDto2, categoryDto1); // Esperado en orden descendente
-        when(categoryAllHandler.execute(0, 10, true)).thenReturn(List.of(categoryDto1, categoryDto2)); // Orden natural
+        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        List<CategoryDto> expectedCategories = List.of(categoryDto2, categoryDto1);
+        when(categoryAllHandler.execute(0, 10, false)).thenReturn(expectedCategories);
         // Act
-        List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
+        List<CategoryDto> result = categoryQueryController.getAll(0, 10, false);
         // Assert
+        assertEquals(expectedCategories, result);
         assertEquals(expectedCategories.get(0).getName(), result.get(0).getName());
         assertEquals(expectedCategories.get(1).getName(), result.get(1).getName());
     }
+
+    @Test
+    void getAll_shouldReturnEmptyListWhenNoCategoriesExist() {
+        // arrange
+        List<CategoryDto> expectedCategories = List.of();
+        when(categoryAllHandler.execute(0, 10, true)).thenReturn(expectedCategories);
+        // Act
+        List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
+        // Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getAll_shouldHandleNoDataFound() {
+        // arrange
+        when(categoryAllHandler.execute(0, 10, true)).thenReturn(List.of());
+        List<CategoryDto> result = categoryQueryController.getAll(0, 10, true);
+        // Assert
+        assertTrue(result.isEmpty());
+    }
+
 }

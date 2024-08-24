@@ -1,4 +1,4 @@
-package com.example.stock.brand.brandapplicationtest;
+package com.example.stock.infrastructure.brand.brand.brandapplicationtest;
 
 
 import com.example.stock.application.brand.command.BrandCreateHandler;
