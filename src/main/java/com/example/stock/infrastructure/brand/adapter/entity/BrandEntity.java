@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "categories", indexes = {
-        @Index(name = "idx_category_name", columnList = "name")
+@Table(name = "brands", indexes = {
+        @Index(name = "idx_brands_name", columnList = "name")
 })
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryEntity {
+public class BrandEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
