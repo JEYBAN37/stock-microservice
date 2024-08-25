@@ -25,7 +25,7 @@ public class CategoryQueryController {
 
     @Operation(summary = "Get Brand by name")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brands returned",
+            @ApiResponse(responseCode = "200", description = "Category returned",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))),
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
@@ -36,7 +36,7 @@ public class CategoryQueryController {
     }
     @Operation(summary = "Get All Brands")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brands returned",
+            @ApiResponse(responseCode = "200", description = "Category returned",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))),
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
