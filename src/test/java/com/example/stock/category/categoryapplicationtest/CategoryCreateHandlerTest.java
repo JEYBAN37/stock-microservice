@@ -52,7 +52,6 @@ class CategoryCreateHandlerTest {
         // assert
         assertNotNull(createdCategory);
         assertEquals("Category3", createdCategory.getName());
-        assertEquals(3L, createdCategory.getId()); // Assuming auto-increment logic
     }
     @Test
     void handler_createsCategory_whenExistCategory_shouldThrowsCategoryException() {
@@ -61,7 +60,7 @@ class CategoryCreateHandlerTest {
         // act
         CategoryException exception = assertThrows(CategoryException.class, () -> categoryCreateHandler.execute(command));
         // assert
-        assertEquals("Brand Exist", exception.getErrorMessage());
+        assertEquals("Article Exist", exception.getErrorMessage());
 
     }
 

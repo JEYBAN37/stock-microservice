@@ -38,15 +38,12 @@ import static org.mockito.Mockito.when;
      @Test
      void execute_shouldReturnCategoriesInAscendingOrder() {
          // Arrange
-         CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-         CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+         CategoryDto categoryDto1 = new CategoryDto( "Category A", "Description A");
+         CategoryDto categoryDto2 = new CategoryDto( "Category B", "Description B");
          List<CategoryDto> expectedCategories = Arrays.asList(categoryDto1, categoryDto2);
-
          when(categoryFilterService.execute(0, 10, true)).thenReturn(expectedCategories);
-
          // Act
          List<CategoryDto> result = categoryAllHandler.execute(0, 10, true);
-
          // Assert
          assertEquals(expectedCategories, result);
      }
@@ -55,12 +52,10 @@ import static org.mockito.Mockito.when;
      @Test
      void execute_shouldReturnCategoriesInDescendingOrder() {
          // Arrange
-         CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-         CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+         CategoryDto categoryDto1 = new CategoryDto( "Category A", "Description A");
+         CategoryDto categoryDto2 = new CategoryDto( "Category B", "Description B");
          List<CategoryDto> expectedCategories = Arrays.asList(categoryDto2, categoryDto1);
-
          when(categoryFilterService.execute(0, 10, false)).thenReturn(expectedCategories);
-
          // Act
          List<CategoryDto> result = categoryAllHandler.execute(0, 10, false);
 
@@ -72,7 +67,6 @@ import static org.mockito.Mockito.when;
      void execute_shouldReturnEmptyListWhenNoCategories() {
          // Arrange
          when(categoryFilterService.execute(0, 10, true)).thenReturn(Collections.emptyList());
-
          // Act
          List<CategoryDto> result = categoryAllHandler.execute(0, 10, true);
 

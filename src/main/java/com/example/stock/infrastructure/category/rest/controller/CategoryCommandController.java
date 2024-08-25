@@ -23,19 +23,19 @@ public class CategoryCommandController {
     private  final CategoryDeleteHandler categoryDeleteHandler;
 
 
-    @Operation(summary = "Add a new Brand")
+    @Operation(summary = "Add a new Article")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Brand created", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Article created", content = @Content),
             @ApiResponse(responseCode = "409", content = @Content)
     })
     @PostMapping("/")
     public CategoryDto create(@RequestBody CategoryCreateCommand createCommand){
         return categoryCreateHandler.execute(createCommand);
     }
-    @Operation(summary = "Update an existing Brand")
+    @Operation(summary = "Update an existing Article")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brand updated", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Brand not found", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Article updated", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
     })
     @PutMapping("/{id}")
     public CategoryDto edit(@RequestBody CategoryEditCommand categoryEditCommand, @PathVariable Long id){
@@ -44,8 +44,8 @@ public class CategoryCommandController {
 
     @Operation(summary = "Delete a category by their id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brand deleted", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Brand not found", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Article deleted", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
     })
 
     @DeleteMapping("/{id}")

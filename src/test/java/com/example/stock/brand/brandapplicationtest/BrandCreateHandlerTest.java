@@ -52,7 +52,6 @@ class BrandCreateHandlerTest {
         // assert
         assertNotNull(createdBrand);
         assertEquals("Category3", createdBrand.getName());
-        assertEquals(3L, createdBrand.getId()); // Assuming auto-increment logic
     }
     @Test
     void handler_createsCategory_whenExistCategory_shouldThrowsCategoryException() {
@@ -61,7 +60,7 @@ class BrandCreateHandlerTest {
         // act
         BrandException exception = assertThrows(BrandException.class, () -> brandCreateHandler.execute(command));
         // assert
-        assertEquals("Brand Exist", exception.getErrorMessage());
+        assertEquals("Article Exist", exception.getErrorMessage());
 
     }
 
@@ -106,7 +105,4 @@ class BrandCreateHandlerTest {
         // assert
         assertEquals("Description don't be bigger than 120 characters", exception.getErrorMessage());
     }
-
-
-
 }

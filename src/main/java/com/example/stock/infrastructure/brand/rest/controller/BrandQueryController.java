@@ -23,7 +23,7 @@ import java.util.List;
 public class BrandQueryController {
     private final BrandByName brandByName;
     private final BrandAllHandler brandAllHandler;
-    @Operation(summary = "Get Brand by name")
+    @Operation(summary = "Get Article by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "brand returned",
                     content = @Content(mediaType = "application/json",

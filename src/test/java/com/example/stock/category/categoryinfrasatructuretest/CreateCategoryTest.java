@@ -33,17 +33,15 @@ public class CreateCategoryTest {
     void createCategory_successful() {
         // arrange
         CategoryDto mockCategoryDto = new CategoryDto();
-        mockCategoryDto.setId(1L);
-        mockCategoryDto.setName("Test Brand");
+        mockCategoryDto.setName("Test Article");
         mockCategoryDto.setDescription("This is a test category");
         CategoryCreateCommand mockCreateCommand = new CategoryCreateCommand();
-        mockCreateCommand.setName("Test Brand");
+        mockCreateCommand.setName("Test Article");
         mockCreateCommand.setDescription("This is a test category");
         when(categoryCreateHandler.execute(any(CategoryCreateCommand.class))).thenReturn(mockCategoryDto);
         // act
         CategoryDto result = categoryCommandController.create(mockCreateCommand);
         // assert
-        assertEquals(mockCategoryDto.getId(), result.getId());
         assertEquals(mockCategoryDto.getName(), result.getName());
         assertEquals(mockCategoryDto.getDescription(), result.getDescription());
 
@@ -52,10 +50,10 @@ public class CreateCategoryTest {
     void createCategory_whenNameExist_shouldThrowsCategoryException() {
         // arrange
         CategoryCreateCommand mockCreateCommand = new CategoryCreateCommand();
-        mockCreateCommand.setName("Existing Brand Name");
+        mockCreateCommand.setName("Existing Article Name");
         mockCreateCommand.setDescription("This is a test category");
         when(categoryCreateHandler.execute(any(CategoryCreateCommand.class)))
-                .thenThrow(new CategoryException("Brand with this name already exists"));
+                .thenThrow(new CategoryException("Article with this name already exists"));
         // act & Assert
         assertThrows(CategoryException.class, () -> {
             categoryCommandController.create(mockCreateCommand);

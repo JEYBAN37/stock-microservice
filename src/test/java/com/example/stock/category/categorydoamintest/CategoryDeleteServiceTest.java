@@ -21,8 +21,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
-
 @ExtendWith(MockitoExtension.class)
 class CategoryDeleteServiceTest {
     private CategoryDeleteService categoryDeleteService;
@@ -44,10 +42,10 @@ class CategoryDeleteServiceTest {
     @Test
     void deleteCategory_whenCategoryNoExist_shouldThrowsCategoryException() {
         //arrange
-        CategoryDto command = new CategoryDto(41L,"Category1","d");
+        Category command = new Category(5l,"Category1","d");
         // act
         CategoryException exception = assertThrows(CategoryException.class, () -> {
-            categoryDeleteService.execute( command.getId());
+            categoryDeleteService.execute(command.getId());
         });
         //assert
         assertEquals("Error to Remove No Exist", exception.getErrorMessage());

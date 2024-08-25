@@ -33,7 +33,7 @@ class BrandCreateServiceTest {
                 new Brand(2L, "Brand2","d")
         );
 
-        // Create DAO and Repository with the sample Brand list
+        // Create DAO and Repository with the sample Article list
         BrandDao BrandDao = new Dao(new ArrayList<>(initialCategories));
         BrandRepository BrandRepository = new Repository(new ArrayList<>(initialCategories));
 
@@ -61,7 +61,7 @@ class BrandCreateServiceTest {
             brandCreateService.execute(command);
         });
         // assert
-        assertEquals("Brand Exist", exception.getErrorMessage());
+        assertEquals("Article Exist", exception.getErrorMessage());
 
     }
     @Test

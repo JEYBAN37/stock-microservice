@@ -13,7 +13,6 @@ public class CategoryDtoMapperInstance implements CategoryDtoMapper {
         }
 
         CategoryDto dto = new CategoryDto();
-        dto.setId(domain.getId());
         dto.setName(domain.getName());
         dto.setDescription(domain.getDescription());
 

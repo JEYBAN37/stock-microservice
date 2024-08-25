@@ -32,17 +32,15 @@ class CreateBrandTest {
     void createBrand_successful() {
         // arrange
         BrandDto mockBrandDto = new BrandDto();
-        mockBrandDto.setId(1L);
-        mockBrandDto.setName("Test Brand");
-        mockBrandDto.setDescription("This is a test Brand");
+        mockBrandDto.setName("Test Article");
+        mockBrandDto.setDescription("This is a test Article");
         BrandCreateCommand mockCreateCommand = new BrandCreateCommand();
-        mockCreateCommand.setName("Test Brand");
-        mockCreateCommand.setDescription("This is a test Brand");
+        mockCreateCommand.setName("Test Article");
+        mockCreateCommand.setDescription("This is a test Article");
         when(brandCreateHandler.execute(any(BrandCreateCommand.class))).thenReturn(mockBrandDto);
         // act
         BrandDto result = brandCommandController.create(mockCreateCommand);
         // assert
-        assertEquals(mockBrandDto.getId(), result.getId());
         assertEquals(mockBrandDto.getName(), result.getName());
         assertEquals(mockBrandDto.getDescription(), result.getDescription());
 
@@ -51,10 +49,10 @@ class CreateBrandTest {
     void createBrand_whenNameExist_shouldThrowsBrandException() {
         // arrange
         BrandCreateCommand mockCreateCommand = new BrandCreateCommand();
-        mockCreateCommand.setName("Existing Brand Name");
-        mockCreateCommand.setDescription("This is a test Brand");
+        mockCreateCommand.setName("Existing Article Name");
+        mockCreateCommand.setDescription("This is a test Article");
         when(brandCreateHandler.execute(any(BrandCreateCommand.class)))
-                .thenThrow(new BrandException("Brand with this name already exists"));
+                .thenThrow(new BrandException("Article with this name already exists"));
         // act & Assert
         assertThrows(BrandException.class, () -> {
             brandCommandController.create(mockCreateCommand);

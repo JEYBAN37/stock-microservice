@@ -58,7 +58,7 @@ class CategoryCreateServiceTest {
             categoryCreateService.execute(command);
         });
         // assert
-        assertEquals("Brand Exist", exception.getErrorMessage());
+        assertEquals("Article Exist", exception.getErrorMessage());
 
     }
     @Test

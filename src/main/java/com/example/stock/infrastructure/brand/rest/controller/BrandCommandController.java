@@ -23,19 +23,19 @@ public class BrandCommandController {
     private  final BrandDeleteHandler brandDeleteHandler;
 
 
-    @Operation(summary = "Add a new Brand")
+    @Operation(summary = "Add a new Article")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Brand created", content = @Content),
+            @ApiResponse(responseCode = "201", description = "Article created", content = @Content),
             @ApiResponse(responseCode = "409", content = @Content)
     })
     @PostMapping("/")
     public BrandDto create(@RequestBody BrandCreateCommand createCommand){
         return brandCreateHandler.execute(createCommand);
     }
-    @Operation(summary = "Update an existing Brand")
+    @Operation(summary = "Update an existing Article")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brand updated", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Brand not found", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Article updated", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
     })
     @PutMapping("/{id}")
     public BrandDto edit(@RequestBody BrandEditCommand brandEditCommand, @PathVariable Long id){
@@ -44,8 +44,8 @@ public class BrandCommandController {
 
     @Operation(summary = "Delete a brand by their id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Brand deleted", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Brand not found", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Article deleted", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
     })
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id){

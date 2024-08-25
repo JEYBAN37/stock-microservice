@@ -62,7 +62,7 @@ class CategoryUpdateServiceTest {
             categoryUpdateService.execute(command, 5L);
         });
         // assert
-        assertEquals("Brand No Exist", exception.getErrorMessage());
+        assertEquals("Article No Exist", exception.getErrorMessage());
     }
     @Test
     void updateCategory_whenEmptyName_shouldThrowsCategoryException() {

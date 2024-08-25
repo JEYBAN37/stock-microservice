@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 public class CategoryUpdateService {
     private final CategoryRepository categoryRepository;
     private final CategoryDao categoryDao;
-    private static final String MESSAGE_ERROR_UPDATE = "Brand No Exist";
+    private static final String MESSAGE_ERROR_UPDATE = "Article No Exist";
     public Category execute(CategoryEditCommand categoryEditCommand, Long id) {
         Category currentCategory = categoryDao.getById(id);
         if (currentCategory == null)

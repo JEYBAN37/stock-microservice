@@ -29,8 +29,8 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnCategories() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Brand 1", "Description 1");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Brand 2", "Description 2");
+        CategoryDto categoryDto1 = new CategoryDto( "Article 1", "Description 1");
+        CategoryDto categoryDto2 = new CategoryDto( "Article 2", "Description 2");
         List<CategoryDto> expectedCategories = List.of(categoryDto1, categoryDto2);
         when(categoryAllHandler.execute(0, 10, false)).thenReturn(expectedCategories);
         // act
@@ -52,8 +52,8 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnCategoriesInAscendingOrder() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        CategoryDto categoryDto1 = new CategoryDto( "Category A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto("Category B", "Description B");
         List<CategoryDto> expectedCategories = List.of(categoryDto1, categoryDto2);
         when(categoryAllHandler.execute(0, 10, true)).thenReturn(expectedCategories);
         // Act
@@ -67,8 +67,8 @@ class ListCategoriesTest {
     @Test
     void getAll_shouldReturnCategoriesInDescendingOrder() {
         // arrange
-        CategoryDto categoryDto1 = new CategoryDto(1L, "Category A", "Description A");
-        CategoryDto categoryDto2 = new CategoryDto(2L, "Category B", "Description B");
+        CategoryDto categoryDto1 = new CategoryDto( "Category A", "Description A");
+        CategoryDto categoryDto2 = new CategoryDto( "Category B", "Description B");
         List<CategoryDto> expectedCategories = List.of(categoryDto2, categoryDto1);
         when(categoryAllHandler.execute(0, 10, false)).thenReturn(expectedCategories);
         // Act

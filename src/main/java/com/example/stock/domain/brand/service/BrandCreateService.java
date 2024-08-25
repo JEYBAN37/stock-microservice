@@ -13,11 +13,11 @@ public class BrandCreateService {
     private final BrandRepository brandRepository;
     private final BrandDao brandDao;
 
-    private static final String MESSAGE_ERROR_ADD = "Brand Exist";
+    private static final String MESSAGE_ERROR_ADD = "Article Exist";
     public Brand execute (BrandCreateCommand brandCreateCommand){
         if (brandDao.nameExist(brandCreateCommand.getName()))
             throw new BrandException(MESSAGE_ERROR_ADD);
-        Brand BrandToCreate = new Brand().requestToCreate(brandCreateCommand);
-        return brandRepository.create(BrandToCreate);
+        Brand brandToCreate = new Brand().requestToCreate(brandCreateCommand);
+        return brandRepository.create(brandToCreate);
     }
 }
