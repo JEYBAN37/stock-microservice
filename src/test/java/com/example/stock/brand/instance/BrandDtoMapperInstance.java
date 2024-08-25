@@ -1,6 +1,5 @@
 package com.example.stock.brand.instance;
 
-
 import com.example.stock.application.brand.mapper.BrandDtoMapper;
 import com.example.stock.domain.brand.model.dto.BrandDto;
 import com.example.stock.domain.brand.model.entity.Brand;

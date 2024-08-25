@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class ArticleEditCommand {
+    private Long id;
     private String name;
     private String description;
     private int quantity;

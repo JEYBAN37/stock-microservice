@@ -28,12 +28,12 @@ class BrandCreateHandlerTest {
     private BrandCreateHandler brandCreateHandler;
     @BeforeEach
     public void setUp() {
-        // Create DAO and Repository with the sample category list
+        // Create DAO and Repository with the sample Brand list
         List<Brand> initialBrands = Arrays.asList(
-                new Brand(1L, "Category1","d"),
-                new Brand(2L, "Category2","d")
+                new Brand(1L, "Brand1","d"),
+                new Brand(2L, "Brand2","d")
         );
-        // Create DAO and Repository with the sample category list
+        // Create DAO and Repository with the sample Brand list
         BrandDao brandDao = new Dao(new ArrayList<>(initialBrands));
         BrandRepository brandRepository = new Repository(new ArrayList<>(initialBrands));
 
@@ -44,19 +44,19 @@ class BrandCreateHandlerTest {
     }
 
     @Test
-    void handler_createsCategory_successfully() {
+    void handler_createsBrand_successfully() {
         // arrange
-        BrandCreateCommand command = new BrandCreateCommand("Category3","dsfd");
+        BrandCreateCommand command = new BrandCreateCommand("Brand3","dsfd");
         // act
         BrandDto createdBrand = brandCreateHandler.execute(command);
         // assert
         assertNotNull(createdBrand);
-        assertEquals("Category3", createdBrand.getName());
+        assertEquals("Brand3", createdBrand.getName());
     }
     @Test
-    void handler_createsCategory_whenExistCategory_shouldThrowsCategoryException() {
+    void handler_createsBrand_whenExistBrand_shouldThrowsBrandException() {
         //arrange
-        BrandCreateCommand command = new BrandCreateCommand("Category2","dsfd");
+        BrandCreateCommand command = new BrandCreateCommand("Brand2","dsfd");
         // act
         BrandException exception = assertThrows(BrandException.class, () -> brandCreateHandler.execute(command));
         // assert
@@ -65,7 +65,7 @@ class BrandCreateHandlerTest {
     }
 
     @Test
-    void handler_createCategory_whenEmptyName_shouldThrowsCategoryException() {
+    void handler_createBrand_whenEmptyName_shouldThrowsBrandException() {
         //arrange
         BrandCreateCommand command = new BrandCreateCommand("", "description");
         // act
@@ -75,7 +75,7 @@ class BrandCreateHandlerTest {
     }
 
     @Test
-    void handler_createCategory_whenNameTooLong_shouldThrowsCategoryException() {
+    void handler_createBrand_whenNameTooLong_shouldThrowsBrandException() {
         // arrange
         String longName = "A".repeat(51); // 101 characters long
         BrandCreateCommand command = new BrandCreateCommand(longName, "description");
@@ -86,7 +86,7 @@ class BrandCreateHandlerTest {
     }
 
     @Test
-    void handler_createCategory_whenEmptyDescription_shouldThrowsCategoryException() {
+    void handler_createBrand_whenEmptyDescription_shouldThrowsBrandException() {
         // arrange
         BrandCreateCommand command = new BrandCreateCommand("longName", "");
         // act
@@ -96,7 +96,7 @@ class BrandCreateHandlerTest {
     }
 
     @Test
-    void handler_createCategory_whenDescriptionTooLong_shouldThrowsCategoryException() {
+    void handler_createBrand_whenDescriptionTooLong_shouldThrowsBrandException() {
         // arrange
         String longDescription = "A".repeat(121); // 101 characters long
         BrandCreateCommand command = new BrandCreateCommand("longName", longDescription);
