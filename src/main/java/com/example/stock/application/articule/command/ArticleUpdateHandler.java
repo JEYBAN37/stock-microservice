@@ -14,7 +14,7 @@ public class ArticleUpdateHandler {
     private final ArticleDtoMapper articleDtoMapper;
 
     public ArticleDto execute (ArticleEditCommand articleEditCommand, Long id){
-        return articleDtoMapper.toDto(articleUpdateService.execute(articleEditCommand,id));
+        return articleDtoMapper.toDto(articleUpdateService.execute(id,articleEditCommand));
     }
 }
 

@@ -23,8 +23,9 @@ public class ArticleBean{
         return new ArticleDeleteService(articleRepository,articleDao);
     }
     @Bean
-    public ArticleUpdateService articleUpdateService(ArticleRepository articleRepository, ArticleDao articleDao){
-        return new ArticleUpdateService(articleRepository, articleDao);
+    public ArticleUpdateService articleUpdateService(ArticleRepository articleRepository, ArticleDao articleDao, CategoryListArticle categoryListArticle,
+                                                     BrandDao brandDao){
+        return new ArticleUpdateService(articleRepository,articleDao,categoryListArticle,brandDao);
     }
 
 }
