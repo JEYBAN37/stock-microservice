@@ -23,7 +23,7 @@ public class BrandCommandController {
     private  final BrandDeleteHandler brandDeleteHandler;
 
 
-    @Operation(summary = "Add a new Article")
+    @Operation(summary = "Add a new brands")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Article created", content = @Content),
             @ApiResponse(responseCode = "409", content = @Content)
@@ -32,7 +32,7 @@ public class BrandCommandController {
     public BrandDto create(@RequestBody BrandCreateCommand createCommand){
         return brandCreateHandler.execute(createCommand);
     }
-    @Operation(summary = "Update an existing Article")
+    @Operation(summary = "Update an existing brands")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article updated", content = @Content),
             @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)

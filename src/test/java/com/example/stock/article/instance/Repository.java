@@ -17,7 +17,7 @@ public class Repository implements ArticleRepository {
 
     @Override
     public Article create(Article request) {
-        Article newArticle = new Article((long) ArticleList.size() + 1,request.getName(),request.getDescription(),request.getQuantity(),request.getPrice());
+        Article newArticle = new Article((long) ArticleList.size() + 1,request.getName(),request.getDescription(),request.getQuantity(),request.getPrice(),request.getBrand(),request.getArticleCategories());
         ArticleList.add(newArticle);
         return newArticle;
     }

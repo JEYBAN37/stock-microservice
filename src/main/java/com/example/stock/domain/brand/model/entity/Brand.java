@@ -13,13 +13,13 @@ public class Brand {
 
     public Brand(Long id, String name, String description) {
         this.id = id;
-        this.name = new BrandName(name);
+        this.name = BrandName.of(name);
         this.description = new BrandDescription(description);
     }
 
     public Brand requestToCreate(BrandCreateCommand brandCreateCommand){
-        this.name = new BrandName(brandCreateCommand.getName());
-        this.description = new BrandDescription(brandCreateCommand.getDescription());
+        this.name =BrandName.of(brandCreateCommand.getName());
+        this.description = BrandDescription.of(brandCreateCommand.getDescription());
         return this;
     }
     public String getName() {

@@ -8,17 +8,24 @@ import lombok.NoArgsConstructor;
 @Getter
 public class BrandName {
     private static final int MAXIMUM_ALLOW_LETTERS = 50;
+    private static final String NAME_MANDATORY = "Name is mandatory";
+    private static final String DESCRIPTION_MAX_ERROR ="Name don't be bigger than 50 characters";
+
     String name;
 
-    public BrandName(String name) {
-        toValidName(name);
+    private BrandName(String name) {
         this.name = name;
     }
 
-    private void toValidName(String name){
+    public static BrandName of(String name) {
+        toValidName(name);
+        return new BrandName(name);
+    }
+
+    private static void toValidName(String name){
         if(name.isEmpty())
-            throw new BrandException("Name is mandatory");
+            throw new BrandException(NAME_MANDATORY);
         if(name.length() > MAXIMUM_ALLOW_LETTERS)
-            throw new BrandException("Name don't be bigger than 50 characters");
+            throw new BrandException(DESCRIPTION_MAX_ERROR);
     }
 }

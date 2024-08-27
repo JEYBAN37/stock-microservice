@@ -10,12 +10,16 @@ public class ArticleName {
     private static final int MAXIMUM_ALLOW_LETTERS = 50;
     String name;
 
-    public ArticleName(String name) {
-        toValidName(name);
+    private ArticleName(String name) {
         this.name = name;
     }
 
-    private void toValidName(String name){
+    public static ArticleName of(String name) {
+        toValidName(name);
+        return new ArticleName(name);
+    }
+
+    private static void toValidName(String name){
         if(name.isEmpty())
             throw new ArticleException("Name is mandatory");
         if(name.length() > MAXIMUM_ALLOW_LETTERS)

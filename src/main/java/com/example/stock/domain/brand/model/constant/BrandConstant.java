@@ -3,5 +3,5 @@ public class BrandConstant {
     private BrandConstant() {
         throw new IllegalStateException("Utility class");
     }
-    public static final String TASK_NOT_FOUND_MESSAGE_ERROR = "No found Article with id %s";
+    public static final String TASK_NOT_FOUND_MESSAGE_ERROR = "No found Brand with id %s";
 }

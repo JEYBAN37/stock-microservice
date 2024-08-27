@@ -11,11 +11,15 @@ public class ArticleDescription {
     private static final int MAXIMUM_ALLOW_LETTERS = 90;
     String description;
 
-    public ArticleDescription(String description){
-        toValidDescription(description);
+    private ArticleDescription(String description){
         this.description = description;
     }
-    private void toValidDescription(String name){
+    public static ArticleDescription of(String description) {
+        toValidDescription(description);
+        return new ArticleDescription(description);
+    }
+
+    private static void toValidDescription(String name){
         if(name.isEmpty())
             throw new ArticleException("Description is mandatory");
         if(name.length() > MAXIMUM_ALLOW_LETTERS)

@@ -12,8 +12,11 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class ArticleCreateCommand {
+    private Long id;
     private String name;
     private String description;
     private int quantity;
     private BigDecimal price;
+    private Long brand;
+    private Long[] articleCategories;
 }

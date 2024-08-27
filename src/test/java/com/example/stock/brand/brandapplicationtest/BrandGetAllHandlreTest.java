@@ -38,8 +38,8 @@ class BrandGetAllHandlreTest {
     @Test
     void execute_shouldReturnCategoriesInAscendingOrder() {
         // arrange
-        BrandDto brandDto1 = new BrandDto( "Article A", "Description A");
-        BrandDto brandDto2 = new BrandDto( "Article B", "Description B");
+        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedCategories = Arrays.asList(brandDto1, brandDto2);
         when(brandFilterService.execute(0, 10, true)).thenReturn(expectedCategories);
         // act
@@ -52,8 +52,8 @@ class BrandGetAllHandlreTest {
     @Test
     void execute_shouldReturnCategoriesInDescendingOrder() {
         // arrange
-        BrandDto brandDto1 = new BrandDto( "Article A", "Description A");
-        BrandDto brandDto2 = new BrandDto( "Article B", "Description B");
+        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedCategories = Arrays.asList(brandDto2, brandDto1);
         when(brandFilterService.execute(0, 10, false)).thenReturn(expectedCategories);
         // act

@@ -9,5 +9,8 @@ import org.mapstruct.Mapping;
 public interface ArticleDtoMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
-    ArticleDto toDto (Article objectOfdomain);
+    @Mapping(source = "quantity", target = "quantity")
+    @Mapping(source = "price", target = "price")
+    @Mapping(source = "articleCategories", target = "articleCategories")
+    ArticleDto toDto (Article objectOfDomain);
 }

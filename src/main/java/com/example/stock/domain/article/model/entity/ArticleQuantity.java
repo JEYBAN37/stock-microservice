@@ -9,11 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ArticleQuantity {
     int quantity;
-    public ArticleQuantity(int quantity) {
+    private ArticleQuantity(int quantity) {
         toValidQuantity(quantity);
         this.quantity = quantity;
     }
-    private void toValidQuantity(int quantity) {
+    public static ArticleQuantity of (int quantity){
+        toValidQuantity(quantity);
+        return new ArticleQuantity();
+    }
+    private static void toValidQuantity(int quantity) {
         if(String.valueOf(quantity).isEmpty())
             throw new BrandException("quantity is mandatory");
         if (quantity < 0) {

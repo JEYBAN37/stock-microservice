@@ -29,8 +29,8 @@ class ListBrandsTest {
     @Test
     void getAll_shouldReturnBrands() {
         // arrange
-        BrandDto brandDto1 = new BrandDto( "Article 1", "Description 1");
-        BrandDto brandDto2 = new BrandDto( "Article 2", "Description 2");
+        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
         when(brandAllHandler.execute(0, 10, false)).thenReturn(expectedBrands);
         // act
@@ -52,9 +52,9 @@ class ListBrandsTest {
     @Test
     void getAll_shouldReturnBrandsInAscendingOrder() {
         // arrange
-        BrandDto BrandDto1 = new BrandDto("Article A", "Description A");
-        BrandDto BrandDto2 = new BrandDto( "Article B", "Description B");
-        List<BrandDto> expectedBrands = List.of(BrandDto1, BrandDto2);
+        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
+        List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
         when(brandAllHandler.execute(0, 10, true)).thenReturn(expectedBrands);
         // Act
         List<BrandDto> result = brandQueryController.getAll(0, 10, true);
@@ -67,9 +67,9 @@ class ListBrandsTest {
     @Test
     void getAll_shouldReturnBrandsInDescendingOrder() {
         // arrange
-        BrandDto BrandDto1 = new BrandDto("Article A", "Description A");
-        BrandDto BrandDto2 = new BrandDto( "Article B", "Description B");
-        List<BrandDto> expectedBrands = List.of(BrandDto2, BrandDto1);
+        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
+        List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
         when(brandAllHandler.execute(0, 10, false)).thenReturn(expectedBrands);
         // Act
         List<BrandDto> result = brandQueryController.getAll(0, 10, false);

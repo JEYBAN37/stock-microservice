@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "categories", indexes = {
         @Index(name = "idx_category_name", columnList = "name")
@@ -21,4 +22,5 @@ public class CategoryEntity {
     private Long id;
     private String name;
     private String description;
+
 }

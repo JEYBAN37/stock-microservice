@@ -1,6 +1,8 @@
 package com.example.stock.infrastructure.article.adapter.entity;
 
 
+import com.example.stock.infrastructure.brand.adapter.entity.BrandEntity;
+import com.example.stock.infrastructure.category.adapter.entity.CategoryEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,4 +30,15 @@ public class ArticleEntity {
     private String description;
     private int quantity;
     private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)
+    private BrandEntity brand;
+
+    @ManyToMany
+    @JoinTable(
+            name = "article_category",
+            joinColumns = @JoinColumn(name = "articles_id"),
+            inverseJoinColumns = @JoinColumn(name = "categories_id")
+    )
+    private CategoryEntity[] articleCategories;
 }

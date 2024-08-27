@@ -1,10 +1,13 @@
 package com.example.stock.domain.article.model.entity;
 
 import com.example.stock.domain.article.model.dto.command.ArticleCreateCommand;
+import com.example.stock.domain.brand.model.entity.Brand;
+import com.example.stock.domain.category.model.entity.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+
 
 @NoArgsConstructor
 @Getter
@@ -14,20 +17,27 @@ public class Article {
     private ArticleDescription description;
     private ArticleQuantity quantity;
     private ArticlePrice price;
+    private Brand brand;
+    private Category[] articleCategories;
 
-    public Article(Long id, String name, String description,int quantity,BigDecimal price) {
+
+    public Article(Long id, String name, String description, int quantity, BigDecimal price,Brand brand, Category[] articleCategories) {
         this.id = id;
-        this.name = new ArticleName(name);
-        this.description = new ArticleDescription(description);
-        this.quantity = new ArticleQuantity(quantity);
-        this.price = new ArticlePrice(price);
+        this.name = ArticleName.of(name);
+        this.description = ArticleDescription.of(description);
+        this.quantity = ArticleQuantity.of(quantity);
+        this.price =  ArticlePrice.of(price);
+        this.articleCategories = articleCategories;
+        this.brand = brand;
     }
+    public Article requestToCreate(ArticleCreateCommand articleCreateCommand, Category [] articleCategories, Brand brand){
+        this.name = ArticleName.of(articleCreateCommand.getName());
+        this.description = ArticleDescription.of(articleCreateCommand.getDescription());
+        this.quantity = ArticleQuantity.of(articleCreateCommand.getQuantity());
+        this.price = ArticlePrice.of(articleCreateCommand.getPrice());
+        this.articleCategories = articleCategories;
+        this.brand = brand;
 
-    public Article requestToCreate(ArticleCreateCommand articleCreateCommand){
-        this.name = new ArticleName(articleCreateCommand.getName());
-        this.description = new ArticleDescription(articleCreateCommand.getDescription());
-        this.quantity = new ArticleQuantity(articleCreateCommand.getQuantity());
-        this.price = new ArticlePrice(articleCreateCommand.getPrice());
         return this;
     }
     public String getName() {
@@ -40,4 +50,6 @@ public class Article {
     public BigDecimal getPrice() {
         return price.getPrice();
     }
+
+
 }
