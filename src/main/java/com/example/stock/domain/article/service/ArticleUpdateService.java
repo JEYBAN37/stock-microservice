@@ -34,6 +34,9 @@ public class ArticleUpdateService {
             throw new ArticleException(MESSAGE_ERROR_ADD);
         }
 
+        if (articleEditCommand.getBrand() == null)
+            throw new ArticleException(MESSAGE_ERROR_BRAND_NOT);
+
         Brand brandArticle = brandDao.getById(articleEditCommand.getBrand());
 
         if (brandArticle == null) {
