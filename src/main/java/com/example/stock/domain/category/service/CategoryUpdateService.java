@@ -1,5 +1,6 @@
 package com.example.stock.domain.category.service;
 
+import com.example.stock.domain.article.model.exception.ArticleException;
 import com.example.stock.domain.category.model.dto.command.CategoryEditCommand;
 import com.example.stock.domain.category.model.entity.Category;
 import com.example.stock.domain.category.model.exception.CategoryException;
@@ -11,11 +12,18 @@ import lombok.AllArgsConstructor;
 public class CategoryUpdateService {
     private final CategoryRepository categoryRepository;
     private final CategoryDao categoryDao;
-    private static final String MESSAGE_ERROR_UPDATE = "Article No Exist";
+    private static final String MESSAGE_ERROR_UPDATE = "Category No Exist";
+    private static final String MESSAGE_ERROR_ADD = "Category with name Exist";
     public Category execute(CategoryEditCommand categoryEditCommand, Long id) {
         Category currentCategory = categoryDao.getById(id);
-        if (currentCategory == null)
+        if (currentCategory == null){
             throw new CategoryException(MESSAGE_ERROR_UPDATE);
+        }
+
+        if (!currentCategory.getName().equals(categoryEditCommand.getName()) && categoryDao.nameExist(categoryEditCommand.getName())) {
+            throw new ArticleException(MESSAGE_ERROR_ADD);
+        }
+
         Category categoryUpdate = new Category(
                 currentCategory.getId(),
                 categoryEditCommand.getName(),

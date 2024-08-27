@@ -44,12 +44,12 @@ class CategoryUpdateServiceTest {
     @Test
     void updateCategory_UpdateCategory_Successfully() {
         // arrange
-        CategoryEditCommand command = new CategoryEditCommand("Category3","dsfd");
+        CategoryEditCommand command = new CategoryEditCommand("Category9","dsfd");
         // act
         Category updateCategory = categoryUpdateService.execute(command,1L);
         // assert
         assertNotNull(updateCategory);
-        assertEquals("Category3", updateCategory.getName());
+        assertEquals("Category9", updateCategory.getName());
         assertEquals(1L, updateCategory.getId());
 
     }
@@ -62,7 +62,7 @@ class CategoryUpdateServiceTest {
             categoryUpdateService.execute(command, 5L);
         });
         // assert
-        assertEquals("Article No Exist", exception.getErrorMessage());
+        assertEquals("Category No Exist", exception.getErrorMessage());
     }
     @Test
     void updateCategory_whenEmptyName_shouldThrowsCategoryException() {

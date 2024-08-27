@@ -38,7 +38,7 @@ public class ArticleCommandController {
             @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
     })
     @PutMapping("/{id}")
-    public ArticleDto edit(@RequestBody ArticleEditCommand editCommand, @PathVariable Long id){
+    public ArticleDto update(@RequestBody ArticleEditCommand editCommand, @PathVariable Long id){
         return articleUpdateHandler.execute(editCommand, id);
     }
 

@@ -19,27 +19,26 @@ public class ArticleUpdateService {
     private final BrandDao brandDao;
 
     private static final String MESSAGE_ERROR_UPDATE = "Article No Exist";
-    private static final String MESSAGE_ERROR_ADD = "Article Exist";
+    private static final String MESSAGE_ERROR_ADD = "Article with name Exist";
     private static final String MESSAGE_ERROR_BRAND_NOT = "Brand inject not found";
 
     public Article execute(Long id, ArticleEditCommand articleEditCommand) {
 
         Article currentCategory = articleDao.getById(id);
 
-        if (currentCategory == null)
+        if (currentCategory == null) {
             throw new ArticleException(MESSAGE_ERROR_UPDATE);
+        }
 
-        if (articleDao.nameExist(articleEditCommand.getName()))
+        if (!currentCategory.getName().equals(articleEditCommand.getName()) && articleDao.nameExist(articleEditCommand.getName())) {
             throw new ArticleException(MESSAGE_ERROR_ADD);
-
-        if (articleEditCommand.getBrand() != null )
-            throw new ArticleException(MESSAGE_ERROR_ADD);
+        }
 
         Brand brandArticle = brandDao.getById(articleEditCommand.getBrand());
 
-        if (brandArticle == null)
+        if (brandArticle == null) {
             throw new ArticleException(MESSAGE_ERROR_BRAND_NOT);
-
+        }
 
         Article articleUpdate = new Article(
                 currentCategory.getId(),
