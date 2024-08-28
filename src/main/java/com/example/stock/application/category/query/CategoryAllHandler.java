@@ -11,8 +11,13 @@ import java.util.List;
 @Component
 public class CategoryAllHandler {
     private  final CategoryFilterService categoryFilterService;
-    public List<CategoryDto> execute(int page, int size, boolean ascending) {
-        return categoryFilterService.execute(page,size,ascending);
+    public List<CategoryDto> execute(Integer page, Integer size, Boolean ascending) {
+
+        int pageNumber = (page == null) ? 0 : page;
+        int pageSize = (size == null) ? 10 : size;
+        boolean isAscending = (ascending != null) && ascending;
+
+        return categoryFilterService.execute(pageNumber,pageSize,isAscending);
     }
 
 }

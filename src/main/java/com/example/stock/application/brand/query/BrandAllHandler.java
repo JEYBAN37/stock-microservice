@@ -12,8 +12,12 @@ import java.util.List;
 @Component
 public class BrandAllHandler {
     private  final BrandFilterService brandFilterService;
-    public List<BrandDto> execute(int page, int size, boolean ascending) {
-        return brandFilterService.execute(page,size,ascending);
+    public List<BrandDto> execute(Integer page, Integer size, Boolean ascending) {
+        int pageNumber = (page == null) ? 0 : page;
+        int pageSize = (size == null) ? 10 : size;
+        boolean isAscending = (ascending != null) && ascending;
+
+        return brandFilterService.execute(pageNumber,pageSize,isAscending);
     }
 
 }

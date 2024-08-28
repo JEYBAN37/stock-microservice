@@ -1,13 +1,10 @@
 package com.example.stock.domain.article.model.entity;
-
 import com.example.stock.domain.article.model.dto.command.ArticleCreateCommand;
 import com.example.stock.domain.brand.model.entity.Brand;
 import com.example.stock.domain.category.model.entity.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
-
 
 @NoArgsConstructor
 @Getter
@@ -21,7 +18,9 @@ public class Article {
     private Category[] articleCategories;
 
 
-    public Article(Long id, String name, String description, int quantity, BigDecimal price,Brand brand, Category[] articleCategories) {
+    public Article(Long id, String name, String description, int quantity,
+                   BigDecimal price, Brand brand, Category[] articleCategories)
+    {
         this.id = id;
         this.name = ArticleName.of(name);
         this.description = ArticleDescription.of(description);
@@ -30,14 +29,15 @@ public class Article {
         this.articleCategories = articleCategories;
         this.brand = brand;
     }
-    public Article requestToCreate(ArticleCreateCommand articleCreateCommand, Category [] articleCategories, Brand brand){
+    public Article requestToCreate(ArticleCreateCommand articleCreateCommand,
+                                   Category [] articleCategories, Brand brand)
+    {
         this.name = ArticleName.of(articleCreateCommand.getName());
         this.description = ArticleDescription.of(articleCreateCommand.getDescription());
         this.quantity = ArticleQuantity.of(articleCreateCommand.getQuantity());
         this.price = ArticlePrice.of(articleCreateCommand.getPrice());
         this.articleCategories = articleCategories;
         this.brand = brand;
-
         return this;
     }
     public String getName() {
@@ -50,7 +50,5 @@ public class Article {
     public BigDecimal getPrice() {
         return price.getPrice();
     }
-
-
 
 }

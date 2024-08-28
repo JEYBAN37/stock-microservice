@@ -40,8 +40,8 @@ public class Dao implements ArticleDao {
     }
 
     @Override
-    public List<Article> getAll(int page, int size, boolean ascending) {
-        return ArticleList;
+    public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand, String byCategory) {
+        return null;
     }
 
 }

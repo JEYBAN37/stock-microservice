@@ -42,9 +42,9 @@ public class CategoryQueryController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/")
-    public List<CategoryDto> getAll( @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "10") int size,
-                                     @RequestParam(defaultValue = "false") boolean ascending) {
+    public List<CategoryDto> getAll( @RequestParam() int page,
+                                     @RequestParam() int size,
+                                     @RequestParam() boolean ascending) {
         return categoryAllHandler.execute(page, size, ascending);
     }
 }

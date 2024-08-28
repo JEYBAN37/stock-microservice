@@ -26,7 +26,7 @@ public class BrandH2Dao implements BrandDao {
     public Brand getByName(String name) {
         Optional<BrandEntity> optionalBrand = Optional.ofNullable(brandSpringJpaAdapterRepository.findByName(name));
         if (optionalBrand.isEmpty()){
-            throw new BrandException(String.format(BrandConstant.TASK_NOT_FOUND_MESSAGE_ERROR, name));
+            throw new BrandException(String.format(BrandConstant.TASK_NOT_FOUND_MESSAGE_ERROR_NAME, name));
         }
         return brandDboMapper.toDomain(optionalBrand.get());
     }

@@ -25,9 +25,4 @@ public class ArticleDescription {
         if(name.length() > MAXIMUM_ALLOW_LETTERS)
             throw new ArticleException("Description don't be bigger than 120 characters");
     }
-
-    public void updateDescription(String newDescription) {
-        toValidDescription(newDescription);
-        this.description = newDescription;
-    }
 }

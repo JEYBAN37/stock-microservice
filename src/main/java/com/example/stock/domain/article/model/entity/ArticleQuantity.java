@@ -19,7 +19,7 @@ public class ArticleQuantity {
     }
     private static void toValidQuantity(int quantity) {
         if(String.valueOf(quantity).isEmpty())
-            throw new BrandException("quantity is mandatory");
+            throw new ArticleException("quantity is mandatory");
         if (quantity < 0) {
             throw new ArticleException("Quantity must be greater than zero");
         }

@@ -19,5 +19,4 @@ public class BrandFilterService {
                 .map(brandDtoMapper::toDto)
                 .toList();
     }
-
 }

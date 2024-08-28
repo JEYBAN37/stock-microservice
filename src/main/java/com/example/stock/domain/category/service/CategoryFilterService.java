@@ -14,7 +14,6 @@ import java.util.List;
 public class CategoryFilterService {
     private final CategoryDtoMapper categoryDtoMapper;
     private final CategoryDao categoryDao;
-
     public List<CategoryDto> execute(int page, int size, boolean ascending) {
         return categoryDao.getAll(page, size, ascending)
                 .stream()

@@ -11,6 +11,6 @@ public interface ArticleDao {
     Article getById(Long id);
     boolean nameExist(String name);
     boolean idExist(Long id);
-    List<Article> getAll(int page, int size, boolean ascending);
+    List<Article> getAll(int page, int size, boolean ascending,String byName,String byBrand,String byCategory);
 
 }

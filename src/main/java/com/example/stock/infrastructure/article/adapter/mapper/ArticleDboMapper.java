@@ -45,9 +45,10 @@ public ArticleEntity toDatabase (Article domain){
                 .map(category -> new Category(category.getId(), category.getName(), category.getDescription()))
                 .toArray(Category[]::new);
 
-        Brand entityBrandToBrand = new Brand(entity.getId(),entity.getName(),entity.getDescription());
+        BrandEntity brandEntity = entity.getBrand();
+        Brand brandEntityToBrand = new Brand(brandEntity.getId(), brandEntity.getName(), brandEntity.getDescription());
 
-        return new Article(entity.getId(), entity.getName(), entity.getDescription(),entity.getQuantity(),entity.getPrice(),entityBrandToBrand,entitiesToCategories);
+        return new Article(entity.getId(), entity.getName(), entity.getDescription(),entity.getQuantity(),entity.getPrice(),brandEntityToBrand,entitiesToCategories);
     }
 
 }
