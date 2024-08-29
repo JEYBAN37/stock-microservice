@@ -33,11 +33,11 @@ public class BrandH2Dao implements BrandDao {
 
     @Override
     public Brand getById(Long id) {
-        Optional<BrandEntity> optionalbrand = brandSpringJpaAdapterRepository.findById(id);
-        if (optionalbrand.isEmpty()){
+        Optional<BrandEntity> optionalBrand = brandSpringJpaAdapterRepository.findById(id);
+        if (optionalBrand.isEmpty()){
             throw new BrandException(String.format(BrandConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
         }
-        return brandDboMapper.toDomain(optionalbrand.get());
+        return brandDboMapper.toDomain(optionalBrand.get());
     }
 
     @Override

@@ -11,6 +11,7 @@ public interface ArticleDtoMapper {
     @Mapping(source = "description", target = "description")
     @Mapping(source = "quantity", target = "quantity")
     @Mapping(source = "price", target = "price")
+    @Mapping(source = "brand", target = "brand")
     @Mapping(source = "articleCategories", target = "articleCategories")
     ArticleDto toDto (Article objectOfDomain);
 }

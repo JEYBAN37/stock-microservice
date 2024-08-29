@@ -9,6 +9,9 @@ import com.example.stock.infrastructure.article.adapter.jpa.ArticleSpringJpaAdap
 
 import com.example.stock.infrastructure.article.adapter.mapper.ArticleDboMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -51,7 +54,15 @@ public class ArticleH2Dao implements ArticleDao {
 
     @Override
     public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand, String byCategory) {
-        return null;
+        ArticleSpecification spec = new ArticleSpecification(byName,byBrand,byCategory);
+        Specification<ArticleEntity> specification = spec.toSpecification();
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, "name"));
+        return articleSpringJpaAdapterRepository.findAll(specification, pageable)
+                .stream()
+                .map(articleDboMapper::toDomain)
+                .toList();
     }
+
 
 }

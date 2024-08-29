@@ -11,12 +11,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/brands")
 @AllArgsConstructor
+@Tag(name ="Brand Command Controller")
 public class BrandCommandController {
     private final BrandCreateHandler brandCreateHandler;
     private final BrandUpdateHandler brandUpdateHandler;

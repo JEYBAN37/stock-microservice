@@ -11,12 +11,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/category")
 @AllArgsConstructor
+@Tag(name ="Category Command Controller")
 public class CategoryCommandController {
     private final CategoryCreateHandler categoryCreateHandler;
     private final CategoryUpdateHandler categoryUpdateHandler;

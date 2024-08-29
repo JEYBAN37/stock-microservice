@@ -1,6 +1,6 @@
 package com.example.stock.brand.brandinfrasatructuretest;
 
-import com.example.stock.application.brand.query.BrandAllHandler;
+import com.example.stock.application.brand.query.BrandGetAll;
 import com.example.stock.domain.brand.model.dto.BrandDto;
 import com.example.stock.infrastructure.brand.rest.controller.BrandQueryController;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 class ListBrandsTest {
     @Mock
-    private BrandAllHandler brandAllHandler;
+    private BrandGetAll brandGetAll;
 
     @InjectMocks
     private BrandQueryController brandQueryController;
@@ -32,7 +32,7 @@ class ListBrandsTest {
         BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
         BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
-        when(brandAllHandler.execute(0, 10, false)).thenReturn(expectedBrands);
+        when(brandGetAll.execute(0, 10, false)).thenReturn(expectedBrands);
         // act
         List<BrandDto> result = brandQueryController.getAll(0, 10, false);
         // assert
@@ -42,7 +42,7 @@ class ListBrandsTest {
     @Test
     void getAll_shouldReturnEmptyListWhenNoBrands() {
         // arrange
-        when(brandAllHandler.execute(0, 10, false)).thenReturn(List.of());
+        when(brandGetAll.execute(0, 10, false)).thenReturn(List.of());
         // act
         List<BrandDto> result = brandQueryController.getAll(0, 10, true);
         // assert
@@ -55,7 +55,7 @@ class ListBrandsTest {
         BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
         BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
-        when(brandAllHandler.execute(0, 10, true)).thenReturn(expectedBrands);
+        when(brandGetAll.execute(0, 10, true)).thenReturn(expectedBrands);
         // Act
         List<BrandDto> result = brandQueryController.getAll(0, 10, true);
         // Assert
@@ -70,7 +70,7 @@ class ListBrandsTest {
         BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
         BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         List<BrandDto> expectedBrands = List.of(brandDto1, brandDto2);
-        when(brandAllHandler.execute(0, 10, false)).thenReturn(expectedBrands);
+        when(brandGetAll.execute(0, 10, false)).thenReturn(expectedBrands);
         // Act
         List<BrandDto> result = brandQueryController.getAll(0, 10, false);
         // Assert
@@ -83,7 +83,7 @@ class ListBrandsTest {
     void getAll_shouldReturnEmptyListWhenNoBrandsExist() {
         // arrange
         List<BrandDto> expectedBrands = List.of();
-        when(brandAllHandler.execute(0, 10, true)).thenReturn(expectedBrands);
+        when(brandGetAll.execute(0, 10, true)).thenReturn(expectedBrands);
         // Act
         List<BrandDto> result = brandQueryController.getAll(0, 10, true);
         // Assert
@@ -93,7 +93,7 @@ class ListBrandsTest {
     @Test
     void getAll_shouldHandleNoDataFound() {
         // arrange
-        when(brandAllHandler.execute(0, 10, true)).thenReturn(List.of());
+        when(brandGetAll.execute(0, 10, true)).thenReturn(List.of());
         List<BrandDto> result = brandQueryController.getAll(0, 10, true);
         // Assert
         assertTrue(result.isEmpty());

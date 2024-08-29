@@ -10,7 +10,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class BrandAllHandler {
+public class BrandGetAll {
     private  final BrandFilterService brandFilterService;
     public List<BrandDto> execute(Integer page, Integer size, Boolean ascending) {
         int pageNumber = (page == null) ? 0 : page;

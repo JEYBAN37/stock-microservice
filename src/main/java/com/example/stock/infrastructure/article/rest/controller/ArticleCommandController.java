@@ -11,12 +11,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/articles")
 @AllArgsConstructor
+@Tag(name ="Article Command Controller")
 public class ArticleCommandController {
     private final ArticleCreateHandler articleCreateHandler;
     private final ArticleUpdateHandler articleUpdateHandler;
