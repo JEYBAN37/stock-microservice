@@ -1,4 +1,4 @@
-package com.example.stock.article.articleapplicationtest;
+package com.example.stock.article.articledomaintest;
 
 import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.article.model.entity.Article;

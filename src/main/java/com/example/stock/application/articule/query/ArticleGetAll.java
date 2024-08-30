@@ -16,7 +16,7 @@ public class ArticleGetAll {
 
         int pageNumber = (page == null) ? 0 : page;
         int pageSize = (size == null) ? 10 : size;
-        boolean isAscending = (ascending == null) && ascending;
+        boolean isAscending = ascending != null;
 
         return articleFilterService.execute(pageNumber, pageSize, isAscending,
                 byName,byBrand,byCategory);
