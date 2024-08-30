@@ -35,7 +35,7 @@ public class ArticleFilterServiceTest {
         // arrange
         int page = 0;
         int size = 10;
-        boolean ascending = false;
+        boolean ascending = true;
         String byName = "TestName";
         String byBrand = "TestBrand";
         String byCategory = "TestCategory";

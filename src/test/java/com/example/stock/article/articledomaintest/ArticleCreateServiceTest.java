@@ -100,6 +100,7 @@ class ArticleCreateServiceTest {
 
     @Test
     void createArticle_whenExistArticle_shouldThrowsArticleException() {
+
         //arrange
         ArticleCreateCommand command = new ArticleCreateCommand(null,"Article2","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
         // act
@@ -146,7 +147,7 @@ class ArticleCreateServiceTest {
             articleCreateService.execute(command);
         });
         // assert
-        assertEquals("Brand inject not found", exception.getErrorMessage());
+        assertEquals("Brand Inject Not Found", exception.getErrorMessage());
     }
 
     @Test
@@ -158,7 +159,7 @@ class ArticleCreateServiceTest {
             articleCreateService.execute(command);
         });
         // assert
-        assertEquals("Brand not found", exception.getErrorMessage());
+        assertEquals("Brand Not Found", exception.getErrorMessage());
     }
 
     @Test
