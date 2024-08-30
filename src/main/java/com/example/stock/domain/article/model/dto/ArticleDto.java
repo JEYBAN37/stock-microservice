@@ -1,7 +1,7 @@
 package com.example.stock.domain.article.model.dto;
 
-import com.example.stock.domain.brand.model.entity.Brand;
-import com.example.stock.domain.category.model.entity.Category;
+import com.example.stock.domain.brand.model.dto.BrandDtoArticle;
+import com.example.stock.domain.category.model.dto.CategoryDtoArticle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,7 @@ public class ArticleDto {
     private String description;
     private int quantity;
     private BigDecimal price;
-    private Brand brand;
-    private Category[] articleCategories;
+    private BrandDtoArticle brand;
+    private CategoryDtoArticle[] articleCategories;
+
 }
