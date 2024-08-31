@@ -33,12 +33,11 @@ public class ArticleEntity {
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brand;
-
     @ManyToMany
     @JoinTable(
             name = "article_category",
-            joinColumns = @JoinColumn(name = "articles_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id")
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private CategoryEntity[] articleCategories;
 }
