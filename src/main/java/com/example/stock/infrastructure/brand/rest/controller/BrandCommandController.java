@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/admin/brands")
 @AllArgsConstructor
 @Tag(name ="Brand Command Controller")
 public class BrandCommandController {

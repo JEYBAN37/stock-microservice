@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/shared/articles")
 @AllArgsConstructor
 @Tag(name ="Article Query Controller")
 public class ArticleQueryController {

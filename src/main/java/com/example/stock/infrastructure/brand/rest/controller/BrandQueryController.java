@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/shared/brands")
 @AllArgsConstructor
 @Tag(name ="Brand Query Controller")
 public class BrandQueryController {

@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/admin/articles")
 @AllArgsConstructor
 @Tag(name ="Article Command Controller")
 public class ArticleCommandController {

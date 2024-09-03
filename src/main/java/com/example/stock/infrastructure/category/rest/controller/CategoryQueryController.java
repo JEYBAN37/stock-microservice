@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/shared/category")
 @AllArgsConstructor
 @Tag(name ="Category Query Controller")
 public class CategoryQueryController {
