@@ -18,6 +18,10 @@ import java.io.IOException;
 
 public class JwtFilter extends GenericFilterBean {
     private static final String MESSAGE_EXCEPTION = "Authorization header is missing or malformed";
+    private static final String MESSAGE_AUTHORIZATION = "Authorization";
+    private static final String MESSAGE_DENIED = "Access denied for non-admin users";
+    private static final String MESSAGE_INVALID = "Invalid JWT token";
+
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -31,7 +35,7 @@ public class JwtFilter extends GenericFilterBean {
             return;
         }
 
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader(MESSAGE_AUTHORIZATION);
         if (!isValidAuthHeader(authHeader)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, MESSAGE_EXCEPTION);
             return;
@@ -43,7 +47,7 @@ public class JwtFilter extends GenericFilterBean {
             String role = claims.get("role", String.class);
 
             if (!isAuthorizedAccess(request, role)) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied for non-admin users");
+                response.sendError(HttpServletResponse.SC_FORBIDDEN,MESSAGE_DENIED );
                 return;
             }
 
@@ -52,7 +56,7 @@ public class JwtFilter extends GenericFilterBean {
 
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,MESSAGE_INVALID);
         }
     }
 
