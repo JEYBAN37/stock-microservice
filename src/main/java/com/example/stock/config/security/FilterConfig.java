@@ -1,6 +1,6 @@
 package com.example.stock.config.security;
 
-import com.example.stock.infrastructure.beanconfiguration.JwtFilter;
+import com.example.stock.infrastructure.JwtFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

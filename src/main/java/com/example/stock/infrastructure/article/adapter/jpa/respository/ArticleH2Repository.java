@@ -18,8 +18,8 @@ public class ArticleH2Repository implements ArticleRepository {
     @Override
     public Article create(Article request) {
         ArticleEntity articleToSave = articleDboMapper.toDatabase(request);
-        ArticleEntity ArticleSaved = articleSpringJpaAdapterRepository.save(articleToSave);
-        return articleDboMapper.toDomain(ArticleSaved);
+        ArticleEntity articleSaved = articleSpringJpaAdapterRepository.save(articleToSave);
+        return articleDboMapper.toDomain(articleSaved);
     }
     @Override
     public void deleteById(Long id) {
@@ -27,8 +27,8 @@ public class ArticleH2Repository implements ArticleRepository {
     }
     @Override
     public Article update(Article request) {
-        var articleToUpdate = articleDboMapper.toDatabase(request);
-        var articleUpdated = articleSpringJpaAdapterRepository.save(articleToUpdate);
+        ArticleEntity articleToUpdate = articleDboMapper.toDatabase(request);
+        ArticleEntity articleUpdated = articleSpringJpaAdapterRepository.save(articleToUpdate);
         return articleDboMapper.toDomain(articleUpdated);
     }
 }
