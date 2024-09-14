@@ -10,11 +10,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_NULL;
+import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_FOUND;
+import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY;
+import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_DUPLICATED;
+
 @AllArgsConstructor
 public class CategoryListArticle {
     private final CategoryDao categoryDao;
-    private static final String MESSAGE_ERROR_CATEGORY = "Category height Invalid";
-    private static final String MESSAGE_ERROR_CATEGORY_NULL = "Category Array Null";
+
 
     public Category[] execute (Long[] categoryEntities){
         return verifyCategories(categoryEntities);
@@ -31,7 +35,7 @@ public class CategoryListArticle {
         Set<Long> uniqueNumbers = new HashSet<>();
         for (Long number : categories) {
             if (!uniqueNumbers.add(number)) {
-                throw new ArticleException("Category duplicated: " + number);
+                throw new ArticleException(MESSAGE_ERROR_CATEGORY_DUPLICATED + number);
             }
         }
 
@@ -43,7 +47,7 @@ public class CategoryListArticle {
     private Category getCategoryById(Long id){
         Category category = categoryDao.getById(id);
         if (category == null)
-            throw new CategoryException("Category no found: " + id);
+            throw new CategoryException(MESSAGE_ERROR_CATEGORY_FOUND + id);
         return category;
     }
 

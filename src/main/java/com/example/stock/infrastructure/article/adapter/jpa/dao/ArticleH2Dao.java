@@ -26,7 +26,9 @@ public class ArticleH2Dao implements ArticleDao {
 
     @Override
     public Article getByName(String name) {
-        Optional<ArticleEntity> optionalArticle = Optional.ofNullable(articleSpringJpaAdapterRepository.findByName(name));
+        Optional<ArticleEntity> optionalArticle = Optional.ofNullable(
+                articleSpringJpaAdapterRepository.findByName(name));
+
         if (optionalArticle.isEmpty()){
             throw new ArticleException(String.format(ArticleConstant.TASK_NOT_FOUND_MESSAGE_ERROR, name));
         }
@@ -43,17 +45,9 @@ public class ArticleH2Dao implements ArticleDao {
     }
 
     @Override
-    public boolean nameExist(String name) {
-        return articleSpringJpaAdapterRepository.existsByName(name);
-    }
-
-    @Override
-    public boolean idExist(Long id) {
-        return articleSpringJpaAdapterRepository.existsById(id);
-    }
-
-    @Override
-    public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand, String byCategory) {
+    public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand,
+                                String byCategory)
+    {
         ArticleSpecification spec = new ArticleSpecification(byName,byBrand,byCategory);
         Specification<ArticleEntity> specification = spec.toSpecification();
 
@@ -64,5 +58,14 @@ public class ArticleH2Dao implements ArticleDao {
                 .toList();
     }
 
+    @Override
+    public boolean nameExist(String name) {
+        return articleSpringJpaAdapterRepository.existsByName(name);
+    }
+
+    @Override
+    public boolean idExist(Long id) {
+        return articleSpringJpaAdapterRepository.existsById(id);
+    }
 
 }

@@ -4,10 +4,11 @@ import com.example.stock.domain.article.model.exception.ArticleException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.example.stock.domain.static_variables.StaticData.*;
+
 @NoArgsConstructor
 @Getter
 public class ArticleName {
-    private static final int MAXIMUM_ALLOW_LETTERS = 50;
     String name;
 
     private ArticleName(String name) {
@@ -20,9 +21,9 @@ public class ArticleName {
     }
 
     private static void toValidName(String name){
-        if(name.isEmpty())
-            throw new ArticleException("Name is mandatory");
+        if(name == null || name.isEmpty())
+            throw new ArticleException(NAME_MANDATORY);
         if(name.length() > MAXIMUM_ALLOW_LETTERS)
-            throw new ArticleException("Name don't be bigger than 50 characters");
+            throw new ArticleException(NAME_MAX_ERROR);
     }
 }

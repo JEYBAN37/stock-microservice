@@ -24,7 +24,8 @@ public ArticleEntity toDatabase (Article domain){
             .toArray(CategoryEntity[]::new);
 
     Brand brandOfDomain = domain.getBrand();
-    BrandEntity brandEntity = new BrandEntity(brandOfDomain.getId(),brandOfDomain.getName(),brandOfDomain.getDescription());
+    BrandEntity brandEntity = new BrandEntity(brandOfDomain.getId(),brandOfDomain.getName()
+            ,brandOfDomain.getDescription());
 
     return new ArticleEntity(
             domain.getId(),
@@ -48,7 +49,8 @@ public ArticleEntity toDatabase (Article domain){
         BrandEntity brandEntity = entity.getBrand();
         Brand brandEntityToBrand = new Brand(brandEntity.getId(), brandEntity.getName(), brandEntity.getDescription());
 
-        return new Article(entity.getId(), entity.getName(), entity.getDescription(),entity.getQuantity(),entity.getPrice(),brandEntityToBrand,entitiesToCategories);
+        return new Article(entity.getId(), entity.getName(),
+                entity.getDescription(),entity.getQuantity(),entity.getPrice(),brandEntityToBrand,entitiesToCategories);
     }
 
 }

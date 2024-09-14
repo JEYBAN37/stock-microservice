@@ -4,12 +4,13 @@ import com.example.stock.domain.brand.model.exception.BrandException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.example.stock.domain.static_variables.StaticData.NAME_MANDATORY;
+import static com.example.stock.domain.static_variables.StaticData.NAME_MAX_ERROR;
+
 @NoArgsConstructor
 @Getter
 public class BrandName {
     private static final int MAXIMUM_ALLOW_LETTERS = 50;
-    private static final String NAME_MANDATORY = "Name is mandatory";
-    private static final String DESCRIPTION_MAX_ERROR ="Name don't be bigger than 50 characters";
 
     String name;
 
@@ -23,9 +24,9 @@ public class BrandName {
     }
 
     private static void toValidName(String name){
-        if(name.isEmpty())
+        if(name == null || name.isEmpty())
             throw new BrandException(NAME_MANDATORY);
         if(name.length() > MAXIMUM_ALLOW_LETTERS)
-            throw new BrandException(DESCRIPTION_MAX_ERROR);
+            throw new BrandException(NAME_MAX_ERROR);
     }
 }

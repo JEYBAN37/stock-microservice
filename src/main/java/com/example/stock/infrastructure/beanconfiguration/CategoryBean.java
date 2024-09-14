@@ -15,17 +15,6 @@ public class CategoryBean {
     }
 
     @Bean
-    public CategoryDeleteService categoryDeleteService(CategoryRepository categoryRepository, CategoryDao categoryDao){
-        return new CategoryDeleteService(categoryRepository, categoryDao);
-    }
-
-    @Bean
-    public CategoryUpdateService categoryUpdateService(CategoryRepository categoryRepository,
-                                                       CategoryDao categoryDao){
-        return new CategoryUpdateService(categoryRepository, categoryDao);
-    }
-
-    @Bean
     public CategoryFilterService categoryFilterService( CategoryDtoMapper categoryDtoMapper,
                                                        CategoryDao categoryDao){
         return new CategoryFilterService(categoryDtoMapper,categoryDao);

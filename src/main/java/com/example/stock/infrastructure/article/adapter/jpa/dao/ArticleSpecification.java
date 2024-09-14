@@ -33,7 +33,8 @@ public class ArticleSpecification {
 
             if (byCategory != null && !byCategory.isEmpty()) {
                 predicates = criteriaBuilder.and(predicates,
-                        criteriaBuilder.like(root.join("articleCategories").get("name"), "%" + byCategory + "%"));
+                        criteriaBuilder.like(root.join("articleCategories").get("name"),
+                                "%" + byCategory + "%"));
             }
 
             return predicates;

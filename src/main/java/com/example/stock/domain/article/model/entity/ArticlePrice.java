@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+import static com.example.stock.domain.static_variables.StaticData.*;
+
 @NoArgsConstructor
 @Getter
 public class ArticlePrice {
@@ -22,9 +24,9 @@ public class ArticlePrice {
 
     private static void toValidPrice(BigDecimal price) {
         if(price == null)
-            throw new BrandException("price is mandatory");
-        if (price.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ArticleException("Price must be greater than zero.");
+            throw new BrandException(PRICE_MANDATORY);
+        if (price.compareTo(BigDecimal.ZERO) <= ZERO_CONSTANT) {
+            throw new ArticleException(PRICE_MIN_ZERO);
         }
     }
 

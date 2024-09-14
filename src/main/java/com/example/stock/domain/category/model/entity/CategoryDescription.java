@@ -4,11 +4,12 @@ import com.example.stock.domain.category.model.exception.CategoryException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.example.stock.domain.static_variables.StaticData.*;
+
 
 @NoArgsConstructor
 @Getter
 public class CategoryDescription {
-    private static final int MAXIMUM_ALLOW_LETTERS = 90;
     String description;
 
     public CategoryDescription(String description){
@@ -16,9 +17,9 @@ public class CategoryDescription {
         this.description = description;
     }
     private void toValidDescription(String name){
-        if(name.isEmpty())
-            throw new CategoryException("Description is mandatory");
-        if(name.length() > MAXIMUM_ALLOW_LETTERS)
-            throw new CategoryException("Description don't be bigger than 90 characters");
+        if(name == null || name.isEmpty())
+            throw new CategoryException(DESCRIPTION_MESSAGE);
+        if(name.length() > MAXIMUM_ALLOW_LETTERS_DESCRIPTION)
+            throw new CategoryException(DESCRIPTION_MESSAGE_MAX_ERROR);
     }
 }

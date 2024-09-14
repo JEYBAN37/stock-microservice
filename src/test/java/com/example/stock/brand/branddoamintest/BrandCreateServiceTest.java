@@ -109,7 +109,7 @@ class BrandCreateServiceTest {
             brandCreateService.execute(command);
         });
         //Assert
-        assertEquals("Description don't be bigger than 120 characters", exception.getErrorMessage());
+        assertEquals("Description don't be bigger than 90 characters", exception.getErrorMessage());
     }
 
 }

@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ArticleException.class)
-    public ResponseEntity<Object> articleHandleBrandException(BrandException ex, WebRequest request) {
+    public ResponseEntity<Object> articleHandleBrandException(ArticleException ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put(TIMESTAMP, LocalDateTime.now());
         body.put(MESSAGE, ex.getErrorMessage());
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CategoryException.class)
-    public ResponseEntity<Object> categoryHandleBrandException(BrandException ex, WebRequest request) {
+    public ResponseEntity<Object> categoryHandleBrandException(CategoryException ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put(TIMESTAMP, LocalDateTime.now());
         body.put(MESSAGE, ex.getErrorMessage());

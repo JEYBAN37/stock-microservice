@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class CreateCategoryTest {
+class CreateCategoryTest {
     @Mock
     private CategoryCreateHandler categoryCreateHandler;
 
