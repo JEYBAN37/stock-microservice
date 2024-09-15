@@ -60,7 +60,7 @@ class CategoryCreateHandlerTest {
         // act
         CategoryException exception = assertThrows(CategoryException.class, () -> categoryCreateHandler.execute(command));
         // assert
-        assertEquals("Article Exist", exception.getErrorMessage());
+        assertEquals("Category Exist", exception.getErrorMessage());
 
     }
 

@@ -225,7 +225,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenDescriptionTooLong_shouldThrowsArticleException() {
         //Arrange
-        String longDescription = "A".repeat(91);
+        String longDescription = "A".repeat(124);
         ArticleCreateCommand command = new ArticleCreateCommand(null,"longName", longDescription,9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
 
       //Act

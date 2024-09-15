@@ -61,7 +61,7 @@ class BrandCreateServiceTest {
             brandCreateService.execute(command);
         });
         // assert
-        assertEquals("Article Exist", exception.getErrorMessage());
+        assertEquals("Brand Exist", exception.getErrorMessage());
 
     }
     @Test
@@ -101,7 +101,7 @@ class BrandCreateServiceTest {
     @Test
     void createBrand_whenDescriptionTooLong_shouldThrowsBrandException() {
         //Arrange
-        String longDescription = "A".repeat(91);
+        String longDescription = "A".repeat(150);
         BrandCreateCommand command = new BrandCreateCommand("longName", longDescription);
 
       //Act
@@ -109,7 +109,7 @@ class BrandCreateServiceTest {
             brandCreateService.execute(command);
         });
         //Assert
-        assertEquals("Description don't be bigger than 90 characters", exception.getErrorMessage());
+        assertEquals("Description don't be bigger than 120 characters", exception.getErrorMessage());
     }
 
 }

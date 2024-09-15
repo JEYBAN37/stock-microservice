@@ -60,7 +60,7 @@ class BrandCreateHandlerTest {
         // act
         BrandException exception = assertThrows(BrandException.class, () -> brandCreateHandler.execute(command));
         // assert
-        assertEquals("Article Exist", exception.getErrorMessage());
+            assertEquals("Brand Exist", exception.getErrorMessage());
 
     }
 
