@@ -13,10 +13,6 @@ import java.math.BigDecimal;
 @Getter
 public class ArticleEditCommand {
     private Long id;
-    private String name;
-    private String description;
     private int quantity;
     private BigDecimal price;
-    private Long brand;
-    private Long[] articleCategories;
 }

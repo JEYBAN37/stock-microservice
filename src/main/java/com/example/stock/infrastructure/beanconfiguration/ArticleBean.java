@@ -5,6 +5,7 @@ import com.example.stock.domain.article.port.dao.ArticleDao;
 import com.example.stock.domain.article.port.repository.ArticleRepository;
 import com.example.stock.domain.article.service.ArticleCreateService;
 import com.example.stock.domain.article.service.ArticleFilterService;
+import com.example.stock.domain.article.service.ArticleSuppliesService;
 import com.example.stock.domain.brand.port.dao.BrandDao;
 import com.example.stock.domain.category.service.CategoryListArticle;
 
@@ -22,6 +23,10 @@ public class ArticleBean{
    @Bean
     public ArticleFilterService articleFilterService (ArticleDtoMapper articleDtoMapper,ArticleDao articleDao){
         return new ArticleFilterService(articleDtoMapper,articleDao);
+    }
+    @Bean
+    public ArticleSuppliesService articleSuppliesService (ArticleRepository articleRepository, ArticleDao articleDao){
+        return new ArticleSuppliesService(articleDao,articleRepository);
     }
 
 }
