@@ -6,10 +6,12 @@ import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.article.model.dto.command.ArticleEditCommand;
 import com.example.stock.domain.article.service.ArticleSuppliesService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Component
 public class ArticleSuppliesHandler {
     private final ArticleSuppliesService articleSuppliesService;
     private final ArticleDtoMapper articleDtoMapper;

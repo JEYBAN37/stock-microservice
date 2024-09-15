@@ -21,7 +21,7 @@ public class ArticleSuppliesService {
 
     public List<Article> execute (List<ArticleEditCommand> articleEditCommands) {
 
-        if (articleEditCommands.isEmpty())
+        if (articleEditCommands == null || articleEditCommands.isEmpty())
             throw new ArticleException(MESSAGE_ERROR_LIST_EMPTY);
 
         return articleEditCommands.stream()
