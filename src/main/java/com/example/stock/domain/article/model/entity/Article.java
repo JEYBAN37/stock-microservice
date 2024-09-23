@@ -5,6 +5,7 @@ import com.example.stock.domain.category.model.entity.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -15,11 +16,11 @@ public class Article {
     private ArticleQuantity quantity;
     private ArticlePrice price;
     private Brand brand;
-    private Category[] articleCategories;
+    private List<Category> articleCategories;
 
 
     public Article(Long id, String name, String description, int quantity,
-                   BigDecimal price, Brand brand, Category[] articleCategories)
+                   BigDecimal price, Brand brand,  List<Category> articleCategories)
     {
         this.id = id;
         this.name = ArticleName.of(name);
@@ -30,7 +31,7 @@ public class Article {
         this.brand = brand;
     }
     public Article requestToCreate(ArticleCreateCommand articleCreateCommand,
-                                   Category [] articleCategories, Brand brand)
+                                   List<Category> articleCategories, Brand brand)
     {
         this.name = ArticleName.of(articleCreateCommand.getName());
         this.description = ArticleDescription.of(articleCreateCommand.getDescription());

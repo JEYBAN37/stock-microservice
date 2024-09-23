@@ -44,9 +44,9 @@ class ArticleCreateServiceTest {
 
         List<Article> initialArticles = Arrays.asList(
                 new Article(1L, "Article1", "d", 9, new BigDecimal("10.50"),new Brand(),
-                        new Category[]{new Category(1L, "Category1", "d"), new Category(2L, "Category2", "d")}),
+                        Arrays.asList(new Category(1L, "Category1", "d"), new Category(2L, "Category2", "d"))),
                 new Article(2L, "Article2", "d", 9, new BigDecimal("10.50"),new Brand(),
-                        new Category[]{new Category(1L, "Category1", "d"), new Category(2L, "Category2", "d")})
+                        Arrays.asList(new Category(1L, "Category1", "d"), new Category(2L, "Category2", "d")))
         );
 
         List<Category> initialCategories = Arrays.asList(
@@ -74,7 +74,7 @@ class ArticleCreateServiceTest {
 @Test
      void createsArticle_successfully() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article3","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article3","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         // act
         Article createdArticle = articleCreateService.execute(command);
         // assert
@@ -87,7 +87,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenIdPresent_successfully() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(5L,"Article8","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(5L,"Article8","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         // act
         Article createdArticle = articleCreateService.execute(command);
         // assert
@@ -102,7 +102,7 @@ class ArticleCreateServiceTest {
     void createArticle_whenExistArticle_shouldThrowsArticleException() {
 
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article2","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article2","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -115,7 +115,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenRepeatCategory_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L, 2L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -128,7 +128,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenInvalidArrayCategory_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L,2L,5L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L,2L,2L,5L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -141,7 +141,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenInvalidBrand_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),10L,new Long[]{1L,2L,2L,5L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),10L,Arrays.asList(1L,2L,2L,5L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -153,7 +153,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenNullBrand_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),null,new Long[]{1L,2L,2L,5L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),null,Arrays.asList(1L,2L,2L,5L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -178,20 +178,20 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenEmptyArrayCategory_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,new Long[]{ });
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article8","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L,2L,2L,5L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
         });
         // assert
-        assertEquals("Category Array Null", exception.getErrorMessage());
+        assertEquals("Category height Invalid", exception.getErrorMessage());
 
     }
 
     @Test
     void createArticle_whenEmptyName_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"", "description",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"", "description",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         //act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -203,7 +203,7 @@ class ArticleCreateServiceTest {
     void createArticle_whenNameTooLong_shouldThrowsArticleException() {
         // arrange
         String longName = "A".repeat(51);
-        ArticleCreateCommand command = new ArticleCreateCommand(null,longName, "description",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,longName, "description",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -214,7 +214,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenEmptyDescription_shouldThrowsArticleException() {
         //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"longName", "",9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"longName", "",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
             articleCreateService.execute(command);
@@ -226,7 +226,7 @@ class ArticleCreateServiceTest {
     void createArticle_whenDescriptionTooLong_shouldThrowsArticleException() {
         //Arrange
         String longDescription = "A".repeat(124);
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"longName", longDescription,9,new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"longName", longDescription,9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
 
       //Act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
@@ -239,7 +239,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenQuantityIsNegative_shouldThrowsArticleException() {
         // Arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", -5, new BigDecimal("10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", -5, new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
 
         // Act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
@@ -253,7 +253,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenPriceIsZero_shouldThrowsArticleException() {
         // Arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", 5, BigDecimal.ZERO,1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", 5, BigDecimal.ZERO,1L,Arrays.asList(1L, 2L));
 
         // Act
         ArticleException exception = assertThrows(ArticleException.class, () -> {
@@ -267,7 +267,7 @@ class ArticleCreateServiceTest {
     @Test
     void createArticle_whenPriceIsNegative_shouldThrowsArticleException() {
         // arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", 5, new BigDecimal("-10.50"),1L,new Long[]{1L,2L});
+        ArticleCreateCommand command = new ArticleCreateCommand(null,"ValidName", "Valid description", 5, new BigDecimal("-10.50"),1L,Arrays.asList(1L, 2L));
 
         // act
         ArticleException exception = assertThrows(ArticleException.class, () -> {

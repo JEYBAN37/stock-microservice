@@ -1,8 +1,6 @@
 package com.example.stock.infrastructure.brand.adapter.jpa.dao;
 
-import com.example.stock.domain.brand.model.constant.BrandConstant;
 import com.example.stock.domain.brand.model.entity.Brand;
-import com.example.stock.domain.brand.model.exception.BrandException;
 import com.example.stock.domain.brand.port.dao.BrandDao;
 import com.example.stock.infrastructure.brand.adapter.entity.BrandEntity;
 import com.example.stock.infrastructure.brand.adapter.jpa.BrandSpringJpaAdapterRepository;
@@ -25,19 +23,13 @@ public class BrandH2Dao implements BrandDao {
     @Override
     public Brand getByName(String name) {
         Optional<BrandEntity> optionalBrand = Optional.ofNullable(brandSpringJpaAdapterRepository.findByName(name));
-        if (optionalBrand.isEmpty()){
-            throw new BrandException(String.format(BrandConstant.TASK_NOT_FOUND_MESSAGE_ERROR_NAME, name));
-        }
-        return brandDboMapper.toDomain(optionalBrand.get());
+        return optionalBrand.map(brandDboMapper::toDomain).orElse(null);
     }
 
     @Override
     public Brand getById(Long id) {
-        Optional<BrandEntity> optionalBrand = brandSpringJpaAdapterRepository.findById(id);
-        if (optionalBrand.isEmpty()){
-            throw new BrandException(String.format(BrandConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
-        }
-        return brandDboMapper.toDomain(optionalBrand.get());
+        Optional<BrandEntity> optionalBrand = (brandSpringJpaAdapterRepository.findById(id));
+        return optionalBrand.map(brandDboMapper::toDomain).orElse(null);
     }
 
     @Override

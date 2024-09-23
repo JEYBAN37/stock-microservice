@@ -6,18 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-public class ArticleCreateCommand {
+public class ArticleSupplyCommand {
     private Long id;
-    private String name;
-    private String description;
     private int quantity;
     private BigDecimal price;
-    private Long brand;
-    private List<Long> articleCategories;
 }

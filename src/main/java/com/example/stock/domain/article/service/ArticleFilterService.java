@@ -5,10 +5,9 @@ import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.article.model.exception.ArticleException;
 import com.example.stock.domain.article.port.dao.ArticleDao;
 import lombok.AllArgsConstructor;
-
 import java.util.List;
-
 import static com.example.stock.domain.static_variables.StaticData.MESSAGE_PAGE_VALID;
+
 
 @AllArgsConstructor
 public class ArticleFilterService {

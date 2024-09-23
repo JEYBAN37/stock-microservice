@@ -37,11 +37,13 @@ public class ArticleH2Dao implements ArticleDao {
 
     @Override
     public Article getById(Long id) {
-        Optional<ArticleEntity> optionalArticle = articleSpringJpaAdapterRepository.findById(id);
-        if (optionalArticle.isEmpty()){
-            throw new ArticleException(String.format(ArticleConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
+        Optional<ArticleEntity> optionalArticle = articleSpringJpaAdapterRepository.findByIdWithCategories(id);
+        if (optionalArticle.isPresent()) {
+            return articleDboMapper.toDomain(optionalArticle.get());
+        } else {
+            return null;
         }
-        return articleDboMapper.toDomain(optionalArticle.get());
+
     }
 
     @Override

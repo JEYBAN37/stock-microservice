@@ -4,7 +4,9 @@ import com.example.stock.domain.article.model.exception.ArticleException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static com.example.stock.domain.static_variables.StaticData.*;
+import static com.example.stock.domain.static_variables.StaticData.MAXIMUM_ALLOW_LETTERS;
+import static com.example.stock.domain.static_variables.StaticData.NAME_MANDATORY;
+import static com.example.stock.domain.static_variables.StaticData.NAME_MAX_ERROR;
 
 @NoArgsConstructor
 @Getter

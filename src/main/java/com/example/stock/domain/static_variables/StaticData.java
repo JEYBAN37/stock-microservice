@@ -15,8 +15,8 @@ public class StaticData {
     public static final String QUANTITY_MANDATORY = "quantity is mandatory";
     public static final String QUANTITY_MESSAGE_MIN_ERROR = "Quantity must be greater than zero";
     public static final int ZERO_CONSTANT = 0;
-    public static final int TEN_CONSTANT = 0;
-
+    public static final int TEN_CONSTANT = 10;
+    public static final int THREE_CONSTANT = 3;
 
     public static final String MESSAGE_ERROR_ADD = "Article Exist";
     public static final String MESSAGE_ERROR_CATEGORY = "Category height Invalid";
@@ -32,7 +32,6 @@ public class StaticData {
 
 
     class StringUtils {
-
         private StringUtils() {
             throw new IllegalStateException("Utility class");
         }

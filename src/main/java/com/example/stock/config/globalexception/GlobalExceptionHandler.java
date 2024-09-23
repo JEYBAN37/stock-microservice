@@ -21,13 +21,13 @@ public class GlobalExceptionHandler {
     private static final String MESSAGE = "message";
     private static final String TIMESTAMP = "timestamp";
     private static final String DETAILS = "details";
+
     @ExceptionHandler(BrandException.class)
     public ResponseEntity<Object> brandHandleBrandException(BrandException ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put(TIMESTAMP, LocalDateTime.now());
         body.put(MESSAGE, ex.getErrorMessage());
         body.put(DETAILS, request.getDescription(false));
-
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -37,7 +37,6 @@ public class GlobalExceptionHandler {
         body.put(TIMESTAMP, LocalDateTime.now());
         body.put(MESSAGE, ex.getErrorMessage());
         body.put(DETAILS, request.getDescription(false));
-
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -47,7 +46,6 @@ public class GlobalExceptionHandler {
         body.put(TIMESTAMP, LocalDateTime.now());
         body.put(MESSAGE, ex.getErrorMessage());
         body.put(DETAILS, request.getDescription(false));
-
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 

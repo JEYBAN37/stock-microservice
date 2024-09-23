@@ -9,6 +9,7 @@ import java.util.List;
 public interface ArticleDao {
     Article getByName(String name);
     Article getById(Long id);
+
     boolean nameExist(String name);
     boolean idExist(Long id);
     List<Article> getAll(int page, int size, boolean ascending,String byName,String byBrand,String byCategory);

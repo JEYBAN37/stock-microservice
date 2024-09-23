@@ -1,16 +1,11 @@
 package com.example.stock.article.articleapplicationtest;
 
 import com.example.stock.application.articule.command.ArticleSuppliesHandler;
-import com.example.stock.application.articule.mapper.ArticleDtoMapper;
-import com.example.stock.domain.article.model.dto.command.ArticleEditCommand;
-import com.example.stock.domain.article.model.dto.ArticleDto;
-import com.example.stock.domain.article.model.entity.Article;
+import com.example.stock.domain.article.model.dto.command.ArticleSupplyCommand;
 import com.example.stock.domain.article.model.exception.ArticleException;
 import com.example.stock.domain.article.service.ArticleSuppliesService;
-
-import com.example.stock.domain.brand.model.dto.BrandDtoArticle;
-import com.example.stock.domain.brand.model.entity.Brand;
-import com.example.stock.domain.category.model.dto.CategoryDtoArticle;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,121 +13,89 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
- class ArticleSuppliesHandlerTest {
 
-    @Mock
-    private ArticleSuppliesService articleSuppliesService;
+class ArticleSuppliesHandlerTest {
 
-    @Mock
-    private ArticleDtoMapper articleDtoMapper;
+     @Mock
+     private ArticleSuppliesService articleSuppliesService;
 
-    @InjectMocks
-    private ArticleSuppliesHandler articleSuppliesHandler;
+     @Mock
+     private ObjectMapper objectMapper;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+     @InjectMocks
+     private ArticleSuppliesHandler articleSuppliesHandler;
 
-    @Test
-     void testExecute_Success() {
-        // Arrange
-        List<ArticleEditCommand> commands = Arrays.asList(new ArticleEditCommand(1L, 10, new BigDecimal(100.0)));
-        Article article = new Article(1L, "Article1", "Description1", 5,  new BigDecimal(50.0), new Brand(), null);
-        ArticleDto articleDto = new ArticleDto("Article1", "Description1", 15, new BigDecimal(100.0), new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+     @BeforeEach
+     void setUp() {
+         MockitoAnnotations.openMocks(this);
+     }
 
-        when(articleSuppliesService.execute(commands)).thenReturn(Arrays.asList(article));
-        when(articleDtoMapper.toDto(article)).thenReturn(articleDto);
+     @Test
+     void execute_ValidArticleSupply_ExecutesSuccessfully() throws Exception {
+         // Arrange
+         String articleSupplyJson = "{\"id\": 1, \"quantity\": 5, \"price\": 100.0}";
+         ArticleSupplyCommand articleSupplyCommand = new ArticleSupplyCommand(1L, 5, new BigDecimal(100.0));
 
-        // Act
-        List<ArticleDto> result = articleSuppliesHandler.execute(commands);
+         when(objectMapper.readValue(articleSupplyJson, ArticleSupplyCommand.class)).thenReturn(articleSupplyCommand);
 
-        // Assert
-        assertEquals(1, result.size());
-        assertEquals(articleDto, result.get(0));
-        verify(articleSuppliesService).execute(commands);
-        verify(articleDtoMapper).toDto(article);
-    }
+         // Act
+         articleSuppliesHandler.execute(articleSupplyJson);
 
-    @Test
-     void testExecute_NullPriceInCommands() {
-        // Arrange
-        List<ArticleEditCommand> commands = Arrays.asList(new ArticleEditCommand(1L, 10, null));
-        Article articleFound = new Article(1L, "Article1", "Description1", 5, new BigDecimal(50.0), new Brand(), null);
-        ArticleDto articleDto = new ArticleDto("Article1", "Description1", 15, new BigDecimal(100.0), new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+         // Assert
+         verify(articleSuppliesService, times(1)).execute(articleSupplyCommand);
+     }
 
-        when(articleSuppliesService.execute(commands)).thenReturn(Arrays.asList(articleFound));
-        when(articleDtoMapper.toDto(articleFound)).thenReturn(articleDto);
+     @Test
+     void execute_InvalidJson_ThrowsJsonProcessingException() throws Exception {
+         // Arrange
+         String invalidJson = "invalid_json";
 
-        // Act
-        List<ArticleDto> result = articleSuppliesHandler.execute(commands);
+         when(objectMapper.readValue(invalidJson, ArticleSupplyCommand.class)).thenThrow(JsonProcessingException.class);
 
-        // Assert
-        assertEquals(1, result.size());
-        assertEquals(articleDto, result.get(0));
-        verify(articleSuppliesService).execute(commands);
-        verify(articleDtoMapper).toDto(articleFound);
-    }
+         // Act
+         articleSuppliesHandler.execute(invalidJson);
 
-    @Test
-    public void testExecute_NonExistentArticle() {
-        // Arrange
-        List<ArticleEditCommand> commands = Arrays.asList(new ArticleEditCommand(99L, 10, new BigDecimal(100.0)));
+         // Assert
+         verify(articleSuppliesService, never()).execute(any());
+         // Verifying that the user is notified about the error
+         verifyNoMoreInteractions(articleSuppliesService);
+     }
 
-        when(articleSuppliesService.execute(commands)).thenThrow(new ArticleException("Article No Exist"));
+     @Test
+     void execute_ArticleException_HandlesAndNotifiesUser() throws Exception {
+         // Arrange
+         String articleSupplyJson = "{\"id\": 1, \"quantity\": 5, \"price\": 100.0}";
+         ArticleSupplyCommand articleSupplyCommand = new ArticleSupplyCommand(1L, 5, new BigDecimal(100.0));
 
-        // Act & Assert
-        ArticleException exception = assertThrows(ArticleException.class, () -> articleSuppliesHandler.execute(commands));
-        assertEquals("Article No Exist", exception.getErrorMessage());
-        verify(articleSuppliesService).execute(commands);
-    }
+         when(objectMapper.readValue(articleSupplyJson, ArticleSupplyCommand.class)).thenReturn(articleSupplyCommand);
+         doThrow(new ArticleException("Article Error")).when(articleSuppliesService).execute(articleSupplyCommand);
 
-    @Test
-    public void testExecute_MultipleArticlesSuccess() {
-        // Arrange
-        List<ArticleEditCommand> commands = Arrays.asList(
-                new ArticleEditCommand(1L, 10, new BigDecimal(100.0)),
-                new ArticleEditCommand(2L, 5, new BigDecimal(50.0))
-        );
+         // Act
+         articleSuppliesHandler.execute(articleSupplyJson);
 
-        Article article1 = new Article(1L, "Article1", "Description1", 5, new BigDecimal(50.0), new Brand(), null);
-        Article article2 = new Article(2L, "Article2", "Description2", 2, new BigDecimal(30.0), new Brand(), null);
+         // Assert
+         verify(articleSuppliesService, times(1)).execute(articleSupplyCommand);
+         verifyNoMoreInteractions(articleSuppliesService);
+     }
 
-        ArticleDto articleDto1 = new ArticleDto("Article1", "Description1", 15, new BigDecimal(100.0), new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
-        ArticleDto articleDto2 = new ArticleDto("Article1", "Description1", 7, new BigDecimal(100.0), new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+     @Test
+     void execute_UnexpectedException_HandlesAndNotifiesUser() throws Exception {
+         // Arrange
+         String articleSupplyJson = "{\"id\": 1, \"quantity\": 5, \"price\": 100.0}";
+         ArticleSupplyCommand articleSupplyCommand = new ArticleSupplyCommand(1L, 5, new BigDecimal(100.0));
 
-        when(articleSuppliesService.execute(commands)).thenReturn(Arrays.asList(article1, article2));
-        when(articleDtoMapper.toDto(article1)).thenReturn(articleDto1);
-        when(articleDtoMapper.toDto(article2)).thenReturn(articleDto2);
+         when(objectMapper.readValue(articleSupplyJson, ArticleSupplyCommand.class)).thenReturn(articleSupplyCommand);
+         doThrow(new RuntimeException("Unexpected error")).when(articleSuppliesService).execute(articleSupplyCommand);
 
-        // Act
-        List<ArticleDto> result = articleSuppliesHandler.execute(commands);
+         // Act
+         articleSuppliesHandler.execute(articleSupplyJson);
 
-        // Assert
-        assertEquals(2, result.size());
-        assertEquals(articleDto1, result.get(0));
-        assertEquals(articleDto2, result.get(1));
-        verify(articleSuppliesService).execute(commands);
-        verify(articleDtoMapper).toDto(article1);
-        verify(articleDtoMapper).toDto(article2);
-    }
+         // Assert
+         verify(articleSuppliesService, times(1)).execute(articleSupplyCommand);
+         verifyNoMoreInteractions(articleSuppliesService);
+     }
 
-    @Test
-    public void testExecute_ArticleUpdateError() {
-        // Arrange
-        List<ArticleEditCommand> commands = Arrays.asList(new ArticleEditCommand(3L, 10, new BigDecimal(100.0)));
-
-        when(articleSuppliesService.execute(commands)).thenThrow(new ArticleException("Error updating article"));
-
-        // Act & Assert
-        ArticleException exception = assertThrows(ArticleException.class, () -> articleSuppliesHandler.execute(commands));
-        assertEquals("Error updating article", exception.getErrorMessage());
-        verify(articleSuppliesService).execute(commands);
-    }
 }

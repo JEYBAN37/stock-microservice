@@ -12,5 +12,6 @@ public class BrandById {
     private final BrandDao brandDao;
     private final BrandDtoMapper brandDtoMapper;
 
-    public BrandDto execute (Long id){return brandDtoMapper.toDto((brandDao.getById(id)));}
+    public BrandDto execute (Long id){
+        return brandDtoMapper.toDto((brandDao.getById(id)));}
 }

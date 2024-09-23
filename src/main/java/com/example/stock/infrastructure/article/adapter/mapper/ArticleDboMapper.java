@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -19,9 +20,8 @@ public ArticleEntity toDatabase (Article domain){
     if(domain == null){
         return null;
     }
-        CategoryEntity[] categoryEntities = Arrays.stream(domain.getArticleCategories())
-            .map(category -> new CategoryEntity(category.getId(), category.getName(), category.getDescription()))
-            .toArray(CategoryEntity[]::new);
+            List<CategoryEntity> categoryEntities = domain.getArticleCategories().stream()
+            .map(category -> new CategoryEntity(category.getId(), category.getName(), category.getDescription())).toList();
 
     Brand brandOfDomain = domain.getBrand();
     BrandEntity brandEntity = new BrandEntity(brandOfDomain.getId(),brandOfDomain.getName()
@@ -42,15 +42,26 @@ public ArticleEntity toDatabase (Article domain){
         if(entity == null){
             return null;
         }
-        Category[] entitiesToCategories = Arrays.stream(entity.getArticleCategories())
-                .map(category -> new Category(category.getId(), category.getName(), category.getDescription()))
-                .toArray(Category[]::new);
+        List<CategoryEntity> categoryEntity =  entity.getArticleCategories();
+        List<Category> entitiesToCategories = categoryEntity
+                .stream()
+                .map(
+                        category ->  new Category(
+                                category.getId(),
+                                category.getName(),
+                                category.getDescription()))
+                .toList();
+
 
         BrandEntity brandEntity = entity.getBrand();
         Brand brandEntityToBrand = new Brand(brandEntity.getId(), brandEntity.getName(), brandEntity.getDescription());
 
         return new Article(entity.getId(), entity.getName(),
-                entity.getDescription(),entity.getQuantity(),entity.getPrice(),brandEntityToBrand,entitiesToCategories);
+                entity.getDescription(),
+                entity.getQuantity(),
+                entity.getPrice(),
+                brandEntityToBrand,
+                entitiesToCategories);
     }
 
 }

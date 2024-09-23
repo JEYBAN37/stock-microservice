@@ -6,30 +6,27 @@ import com.example.stock.domain.category.model.exception.CategoryException;
 import com.example.stock.domain.category.port.dao.CategoryDao;
 import lombok.AllArgsConstructor;
 
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_NULL;
-import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_FOUND;
-import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY;
-import static com.example.stock.domain.static_variables.StaticData.MESSAGE_ERROR_CATEGORY_DUPLICATED;
+import static com.example.stock.domain.static_variables.StaticData.*;
 
 @AllArgsConstructor
 public class CategoryListArticle {
     private final CategoryDao categoryDao;
 
 
-    public Category[] execute (Long[] categoryEntities){
+    public List<Category> execute (List<Long> categoryEntities){
         return verifyCategories(categoryEntities);
     }
 
-    private Category[]  verifyCategories ( Long[] categories){
-        if (categories == null || categories.length == 0){
+    private List<Category>  verifyCategories (List<Long> categories){
+        if (categories == null || categories.isEmpty()){
             throw new ArticleException(MESSAGE_ERROR_CATEGORY_NULL) ;
         }
 
-        if (categories.length > 3)
+        if (categories.size() > THREE_CONSTANT)
             throw new ArticleException(MESSAGE_ERROR_CATEGORY);
 
         Set<Long> uniqueNumbers = new HashSet<>();
@@ -39,9 +36,9 @@ public class CategoryListArticle {
             }
         }
 
-        return Arrays.stream(categories)
+        return categories.stream()
                 .map(this::getCategoryById)
-                .toArray(Category[]::new);
+                .toList();
     }
 
     private Category getCategoryById(Long id){
@@ -50,6 +47,4 @@ public class CategoryListArticle {
             throw new CategoryException(MESSAGE_ERROR_CATEGORY_FOUND + id);
         return category;
     }
-
-
 }

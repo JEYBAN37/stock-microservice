@@ -11,15 +11,25 @@ import java.util.List;
 @Component
 public class ArticleGetAll {
     private final ArticleFilterService articleFilterService;
-    public List<ArticleDto> execute (Integer page, Integer size, Boolean ascending,
-                                     String byName , String byBrand, String byCategory){
+    public List<ArticleDto> execute (Integer page,
+                                     Integer size,
+                                     Boolean ascending,
+                                     String byName,
+                                     String byBrand,
+                                     String byCategory)
+    {
 
         int pageNumber = (page == null) ? 0 : page;
         int pageSize = (size == null) ? 10 : size;
         boolean isAscending = ascending != null;
 
-        return articleFilterService.execute(pageNumber, pageSize, isAscending,
-                byName,byBrand,byCategory);
+        return articleFilterService.execute(
+                pageNumber,
+                pageSize,
+                isAscending,
+                byName,
+                byBrand,
+                byCategory);
     }
 
 }

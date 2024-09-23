@@ -25,18 +25,12 @@ public class CategoryH2Dao implements CategoryDao {
     @Override
     public Category getByName(String name) {
         Optional<CategoryEntity> optionalCategory = Optional.ofNullable(categorySpringJpaAdapterRepository.findByName(name));
-        if (optionalCategory.isEmpty()){
-            throw new CategoryException(String.format(CategoryConstant.TASK_NOT_FOUND_MESSAGE_ERROR, name));
-        }
         return categoryDboMapper.toDomain(optionalCategory.get());
     }
 
     @Override
     public Category getById(Long id) {
         Optional<CategoryEntity> optionalCategory = categorySpringJpaAdapterRepository.findById(id);
-        if (optionalCategory.isEmpty()){
-            throw new CategoryException(String.format(CategoryConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
-        }
         return categoryDboMapper.toDomain(optionalCategory.get());
     }
 
