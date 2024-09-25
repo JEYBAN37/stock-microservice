@@ -12,15 +12,20 @@ import static com.example.stock.domain.static_variables.StaticData.*;
 public class CategoryName {
     String name;
 
-    public CategoryName(String name) {
-        toValidName(name);
+    private CategoryName(String name) {
         this.name = name;
     }
 
-    private void toValidName(String name){
-        if(name == null || name.isEmpty())
+    public static CategoryName of (String name){
+        return new CategoryName(toValidName(name));
+    }
+
+    private static String toValidName(String name){
+        if( name == null || name.isEmpty())
             throw new CategoryException(NAME_MANDATORY);
-        if(name.length() > MAXIMUM_ALLOW_LETTERS)
+        String nameTrip = name.trim().toUpperCase();
+        if(nameTrip.length() > MAXIMUM_ALLOW_LETTERS)
             throw new CategoryException(NAME_MAX_ERROR);
+        return nameTrip;
     }
 }

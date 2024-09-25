@@ -17,14 +17,15 @@ public class ArticleDescription {
         this.description = description;
     }
     public static ArticleDescription of(String description) {
-        toValidDescription(description);
-        return new ArticleDescription(description);
+        return new ArticleDescription( toValidDescription(description));
     }
 
-    private static void toValidDescription(String name){
+    private static String toValidDescription(String name){
         if(name == null || name.isEmpty())
             throw new ArticleException(DESCRIPTION_MESSAGE);
+        String nameTrip = name.trim().toUpperCase();
         if(name.length() > MAXIMUM_ALLOW_LETTERS_VAR)
             throw new ArticleException(DESCRIPTION_MESSAGE_MAX_ERROR_VAR);
+        return nameTrip;
     }
 }

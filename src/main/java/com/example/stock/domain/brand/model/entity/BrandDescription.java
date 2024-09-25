@@ -17,13 +17,15 @@ public class BrandDescription {
     }
 
     public static BrandDescription of(String description) {
-        toValidDescription(description);
-        return new BrandDescription(description);
+        return new BrandDescription( toValidDescription(description));
     }
-    private static void toValidDescription(String name){
-        if(name.isEmpty())
+
+    private static String toValidDescription(String description){
+        if(description== null || description.isEmpty())
             throw new BrandException(DESCRIPTION_MESSAGE);
-        if(name.length() > MAXIMUM_ALLOW_LETTERS_VAR)
+        String descripcionTrim = description.trim().toUpperCase();
+        if(descripcionTrim.length() > MAXIMUM_ALLOW_LETTERS_VAR)
             throw new BrandException(DESCRIPTION_MESSAGE_MAX_ERROR_VAR);
+        return descripcionTrim;
     }
 }

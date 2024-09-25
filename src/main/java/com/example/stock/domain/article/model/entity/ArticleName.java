@@ -18,14 +18,15 @@ public class ArticleName {
     }
 
     public static ArticleName of(String name) {
-        toValidName(name);
-        return new ArticleName(name);
+        return new ArticleName(toValidName(name));
     }
 
-    private static void toValidName(String name){
+    private static String toValidName(String name){
         if(name == null || name.isEmpty())
             throw new ArticleException(NAME_MANDATORY);
+        String nameTrip = name.trim().toUpperCase();
         if(name.length() > MAXIMUM_ALLOW_LETTERS)
             throw new ArticleException(NAME_MAX_ERROR);
+        return nameTrip;
     }
 }

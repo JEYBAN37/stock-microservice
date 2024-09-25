@@ -1,43 +1,49 @@
 package com.example.stock.infrastructure.article.adapter.jpa.dao;
 
+import com.example.stock.infrastructure.category.adapter.entity.CategoryEntity;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import com.example.stock.infrastructure.article.adapter.entity.ArticleEntity;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.example.stock.domain.static_variables.StaticData.*;
+
+
+@AllArgsConstructor
 public class ArticleSpecification {
-
     private final String byName;
     private final String byBrand;
     private final String byCategory;
 
-    public ArticleSpecification(String byName, String byBrand, String byCategory) {
-        this.byName = byName;
-        this.byBrand = byBrand;
-        this.byCategory = byCategory;
-    }
-
     public Specification<ArticleEntity> toSpecification() {
         return (root, query, criteriaBuilder) -> {
-            var predicates = criteriaBuilder.conjunction();
+            List<Predicate> predicates = new ArrayList<>();
 
             if (byName != null && !byName.isEmpty()) {
-                predicates = criteriaBuilder.and(predicates,
-                        criteriaBuilder.like(root.get("name"), byName + "%"));
+                predicates.add(
+                        criteriaBuilder.like(root.get(NAME), byName + "%")
+                );
             }
 
             if (byBrand != null && !byBrand.isEmpty()) {
-                predicates = criteriaBuilder.and(predicates,
-                        criteriaBuilder.equal(root.get("brand").get("name"), byBrand));
+                predicates.add(
+                        criteriaBuilder.like(root.get(BRAND).get(NAME), "%" + byBrand + "%")
+                );
             }
 
             if (byCategory != null && !byCategory.isEmpty()) {
-                predicates = criteriaBuilder.and(predicates,
-                        criteriaBuilder.like(root.join("articleCategories").get("name"),
-                                "%" + byCategory + "%"));
+                Join<ArticleEntity, CategoryEntity> categoryJoin = root.join(ARTICLE_CATEGORY);
+                predicates.add(
+                        criteriaBuilder.like(categoryJoin.get(NAME), "%" + byCategory + "%")
+                );
             }
-
-            return predicates;
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
+
 }

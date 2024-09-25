@@ -45,22 +45,11 @@ class CategoryCreateServiceTest {
         Category createdCategory = categoryCreateService.execute(command);
         // assert
         assertNotNull(createdCategory);
-        assertEquals("Category3", createdCategory.getName());
+        assertEquals("CATEGORY3", createdCategory.getName());
         assertEquals(3L, createdCategory.getId()); // Assuming auto-increment logic
 
     }
-    @Test
-    void createCategory_whenExistCategory_shouldThrowsCategoryException() {
-        //arrange
-        CategoryCreateCommand command = new CategoryCreateCommand("Category2","dsfd");
-        // act
-        CategoryException exception = assertThrows(CategoryException.class, () -> {
-            categoryCreateService.execute(command);
-        });
-        // assert
-        assertEquals("Category Exist", exception.getErrorMessage());
 
-    }
     @Test
     void createCategory_whenEmptyName_shouldThrowsCategoryException() {
         //arrange

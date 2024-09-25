@@ -20,11 +20,13 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.example.stock.domain.static_variables.StaticData.EXCHANGE_NAME;
+import static com.example.stock.domain.static_variables.StaticData.QUEUE_NAME;
+
 @Configuration
 public class ArticleBean{
 
-    public static final String QUEUE_NAME = "tst";
-    public static final String EXCHANGE_NAME = "test-exchange";
+
     @Bean
     public ArticleCreateService articleCreateService (ArticleRepository articleRepository, ArticleDao articleDao, CategoryListArticle categoryListArticle,
                                                       BrandDao brandDao)

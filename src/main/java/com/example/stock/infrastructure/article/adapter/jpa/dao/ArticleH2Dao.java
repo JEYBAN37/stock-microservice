@@ -17,6 +17,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.stock.domain.static_variables.StaticData.NAME;
+
 @AllArgsConstructor
 @Repository
 public class ArticleH2Dao implements ArticleDao {
@@ -38,11 +40,7 @@ public class ArticleH2Dao implements ArticleDao {
     @Override
     public Article getById(Long id) {
         Optional<ArticleEntity> optionalArticle = articleSpringJpaAdapterRepository.findByIdWithCategories(id);
-        if (optionalArticle.isPresent()) {
-            return articleDboMapper.toDomain(optionalArticle.get());
-        } else {
-            return null;
-        }
+        return optionalArticle.map(articleDboMapper::toDomain).orElse(null);
 
     }
 
@@ -53,7 +51,8 @@ public class ArticleH2Dao implements ArticleDao {
         ArticleSpecification spec = new ArticleSpecification(byName,byBrand,byCategory);
         Specification<ArticleEntity> specification = spec.toSpecification();
 
-        PageRequest pageable = PageRequest.of(page, size, Sort.by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, "name"));
+        PageRequest pageable = PageRequest.of(page, size, Sort
+                .by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, NAME));
         return articleSpringJpaAdapterRepository.findAll(specification, pageable)
                 .stream()
                 .map(articleDboMapper::toDomain)

@@ -13,13 +13,13 @@ public class Category {
 
     public Category(Long id, String name, String description) {
         this.id = id;
-        this.name = new CategoryName(name);
-        this.description = new CategoryDescription(description);
+        this.name = CategoryName.of(name);
+        this.description =  CategoryDescription.of(description);
     }
 
     public Category requestToCreate(CategoryCreateCommand categoryCreateCommand){
-        this.name = new CategoryName(categoryCreateCommand.getName());
-        this.description = new CategoryDescription(categoryCreateCommand.getDescription());
+        this.name =  CategoryName.of(categoryCreateCommand.getName());
+        this.description =  CategoryDescription.of(categoryCreateCommand.getDescription());
         return this;
     }
     public String getName() {

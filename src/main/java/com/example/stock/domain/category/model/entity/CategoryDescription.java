@@ -12,14 +12,22 @@ import static com.example.stock.domain.static_variables.StaticData.*;
 public class CategoryDescription {
     String description;
 
-    public CategoryDescription(String description){
-        toValidDescription(description);
+    private CategoryDescription (String description){
         this.description = description;
     }
-    private void toValidDescription(String name){
-        if(name == null || name.isEmpty())
+
+    public static CategoryDescription of (String description){
+        return new CategoryDescription(toValidDescription(description));
+    }
+    private static String toValidDescription(String description){
+
+        if(description == null || description.isEmpty())
             throw new CategoryException(DESCRIPTION_MESSAGE);
-        if(name.length() > MAXIMUM_ALLOW_LETTERS_DESCRIPTION)
+
+        var descriptionTrip =  description.trim().toUpperCase();
+
+        if(descriptionTrip.length() > MAXIMUM_ALLOW_LETTERS_DESCRIPTION)
             throw new CategoryException(DESCRIPTION_MESSAGE_MAX_ERROR);
+        return descriptionTrip;
     }
 }

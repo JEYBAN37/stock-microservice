@@ -35,10 +35,10 @@ class BrandFilterServiceTest {
     @Test
     void execute_shouldReturnMappedBrandDtos() {
         // arrange
-        Brand brand1 = new Brand(1L, "Article A", "Description A");
+        Brand brand1 = new Brand(1L, "ARTICLE A", "Description A");
         Brand brand2 = new Brand(2L, "Article B", "Description B");
-        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
-        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
+        BrandDto brandDto1 = new BrandDto( 1L,"ARTICLE A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"ARTICLE B", "Description B");
         List<Brand> expectedDtos = List.of(brand1, brand2);
         when(brandDao.getAll(0, 10, true)).thenReturn(List.of(brand1, brand2));
         when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);

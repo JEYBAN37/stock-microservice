@@ -19,7 +19,6 @@ public class CategoryAllHandler {
         int pageNumber = (page == null) ? ZERO_CONSTANT : page;
         int pageSize = (size == null) ? TEN_CONSTANT : size;
         boolean isAscending = (ascending != null) && ascending;
-
         return categoryFilterService.execute(pageNumber,pageSize,isAscending);
     }
 

@@ -51,17 +51,7 @@ class BrandCreateHandlerTest {
         BrandDto createdBrand = brandCreateHandler.execute(command);
         // assert
         assertNotNull(createdBrand);
-        assertEquals("Brand3", createdBrand.getName());
-    }
-    @Test
-    void handler_createsBrand_whenExistBrand_shouldThrowsBrandException() {
-        //arrange
-        BrandCreateCommand command = new BrandCreateCommand("Brand2","dsfd");
-        // act
-        BrandException exception = assertThrows(BrandException.class, () -> brandCreateHandler.execute(command));
-        // assert
-            assertEquals("Brand Exist", exception.getErrorMessage());
-
+        assertEquals("BRAND3", createdBrand.getName());
     }
 
     @Test

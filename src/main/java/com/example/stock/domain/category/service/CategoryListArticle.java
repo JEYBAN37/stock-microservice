@@ -16,35 +16,45 @@ import static com.example.stock.domain.static_variables.StaticData.*;
 public class CategoryListArticle {
     private final CategoryDao categoryDao;
 
-
-    public List<Category> execute (List<Long> categoryEntities){
+    public List<Category> execute(List<Long> categoryEntities) {
         return verifyCategories(categoryEntities);
     }
-
-    private List<Category>  verifyCategories (List<Long> categories){
-        if (categories == null || categories.isEmpty()){
-            throw new ArticleException(MESSAGE_ERROR_CATEGORY_NULL) ;
-        }
-
-        if (categories.size() > THREE_CONSTANT)
-            throw new ArticleException(MESSAGE_ERROR_CATEGORY);
-
-        Set<Long> uniqueNumbers = new HashSet<>();
-        for (Long number : categories) {
-            if (!uniqueNumbers.add(number)) {
-                throw new ArticleException(MESSAGE_ERROR_CATEGORY_DUPLICATED + number);
-            }
-        }
+    private List<Category> verifyCategories(List<Long> categories) {
+        validateCategoryList(categories);
+        Set<Long> uniqueCategoryIds = new HashSet<>();
 
         return categories.stream()
-                .map(this::getCategoryById)
+                .map(categoryId -> {
+                    Category category = validateAndFetchCategory(categoryId);
+                    if (!uniqueCategoryIds.add(category.getId())) {
+                        throw new ArticleException(MESSAGE_ERROR_CATEGORY_DUPLICATED + category.getId());
+                    }
+                    return category;
+                })
                 .toList();
     }
 
-    private Category getCategoryById(Long id){
+    private void validateCategoryList(List<Long> categories) {
+        if (categories == null || categories.isEmpty()) {
+            throw new ArticleException(MESSAGE_ERROR_CATEGORY_NULL);
+        }
+        if (categories.size() > THREE_CONSTANT) {
+            throw new ArticleException(MESSAGE_ERROR_CATEGORY_SIZE);
+        }
+        for (Long categoryId : categories) {
+            if (categoryId <= ZERO_CONSTANT) {
+                throw new ArticleException(MESSAGE_ERROR_CATEGORY_CERO + categoryId);
+            }
+        }
+    }
+
+    private Category validateAndFetchCategory(Long id) {
         Category category = categoryDao.getById(id);
-        if (category == null)
-            throw new CategoryException(MESSAGE_ERROR_CATEGORY_FOUND + id);
+        if (category == null) {
+            throw new CategoryException(MESSAGE_ERROR_CATEGORY + id);
+        }
         return category;
     }
+
+
 }

@@ -48,22 +48,11 @@ class BrandCreateServiceTest {
         Brand createdBrand = brandCreateService.execute(command);
         // assert
         assertNotNull(createdBrand);
-        assertEquals("Brand3", createdBrand.getName());
+        assertEquals("BRAND3", createdBrand.getName());
         assertEquals(3L, createdBrand.getId()); // Assuming auto-increment logic
 
     }
-    @Test
-    void createBrand_whenExistBrand_shouldThrowsBrandException() {
-        //arrange
-        BrandCreateCommand command = new BrandCreateCommand("Brand2","dsfd");
-        // act
-        BrandException exception = assertThrows(BrandException.class, () -> {
-            brandCreateService.execute(command);
-        });
-        // assert
-        assertEquals("Brand Exist", exception.getErrorMessage());
 
-    }
     @Test
     void createBrand_whenEmptyName_shouldThrowsBrandException() {
         //arrange

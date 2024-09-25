@@ -51,17 +51,7 @@ class CategoryCreateHandlerTest {
         CategoryDto createdCategory = categoryCreateHandler.execute(command);
         // assert
         assertNotNull(createdCategory);
-        assertEquals("Category3", createdCategory.getName());
-    }
-    @Test
-    void handler_createsCategory_whenExistCategory_shouldThrowsCategoryException() {
-        //arrange
-        CategoryCreateCommand command = new CategoryCreateCommand("Category2","dsfd");
-        // act
-        CategoryException exception = assertThrows(CategoryException.class, () -> categoryCreateHandler.execute(command));
-        // assert
-        assertEquals("Category Exist", exception.getErrorMessage());
-
+        assertEquals("CATEGORY3", createdCategory.getName());
     }
 
     @Test

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.stock.domain.static_variables.StaticData.NAME;
+
 @AllArgsConstructor
 @Repository
 public class BrandH2Dao implements BrandDao {
@@ -44,7 +46,7 @@ public class BrandH2Dao implements BrandDao {
 
     @Override
     public List<Brand> getAll( int page, int size, boolean ascending ) {
-        PageRequest pageRequest = PageRequest.of(page, size, ascending ? Sort.by("name").ascending() : Sort.by("name").descending());
+        PageRequest pageRequest = PageRequest.of(page, size, ascending ? Sort.by(NAME).ascending() : Sort.by(NAME).descending());
         return brandSpringJpaAdapterRepository.findAll(pageRequest)
                 .stream()
                 .map(brandDboMapper::toDomain)

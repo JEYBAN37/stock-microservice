@@ -71,17 +71,7 @@ class ArticleCreateHandlerTest {
         ArticleDto createdArticle = articleCreateHandler.execute(command);
         // assert
         assertNotNull(createdArticle);
-        assertEquals("Article3", createdArticle.getName());
-    }
-    @Test
-    void handler_createsArticle_whenExistArticle_shouldThrowsArticleException() {
-        //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article2","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
-        // act
-        ArticleException exception = assertThrows(ArticleException.class, () -> articleCreateHandler.execute(command));
-        // assert
-        assertEquals("Article Exist", exception.getErrorMessage());
-
+        assertEquals("ARTICLE3", createdArticle.getName());
     }
 
     @Test

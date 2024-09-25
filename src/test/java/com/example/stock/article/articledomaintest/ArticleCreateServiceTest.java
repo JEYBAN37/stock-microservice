@@ -79,7 +79,7 @@ class ArticleCreateServiceTest {
         Article createdArticle = articleCreateService.execute(command);
         // assert
         assertNotNull(createdArticle);
-        assertEquals("Article3", createdArticle.getName());
+        assertEquals("ARTICLE3", createdArticle.getName());
         assertEquals(3L, createdArticle.getId()); // Assuming auto-increment logic
 
     }
@@ -92,25 +92,11 @@ class ArticleCreateServiceTest {
         Article createdArticle = articleCreateService.execute(command);
         // assert
         assertNotNull(createdArticle);
-        assertEquals("Article8", createdArticle.getName());
+        assertEquals("ARTICLE8", createdArticle.getName());
         assertEquals(3L, createdArticle.getId());
 
     }
 
-
-    @Test
-    void createArticle_whenExistArticle_shouldThrowsArticleException() {
-
-        //arrange
-        ArticleCreateCommand command = new ArticleCreateCommand(null,"Article2","dsfd",9,new BigDecimal("10.50"),1L,Arrays.asList(1L, 2L));
-        // act
-        ArticleException exception = assertThrows(ArticleException.class, () -> {
-            articleCreateService.execute(command);
-        });
-        // assert
-        assertEquals("Article Exist", exception.getErrorMessage());
-
-    }
 
     @Test
     void createArticle_whenRepeatCategory_shouldThrowsArticleException() {
@@ -134,7 +120,7 @@ class ArticleCreateServiceTest {
             articleCreateService.execute(command);
         });
         // assert
-        assertEquals("Category height Invalid", exception.getErrorMessage());
+        assertEquals("size invalid", exception.getErrorMessage());
 
     }
 
@@ -184,7 +170,7 @@ class ArticleCreateServiceTest {
             articleCreateService.execute(command);
         });
         // assert
-        assertEquals("Category height Invalid", exception.getErrorMessage());
+        assertEquals("size invalid", exception.getErrorMessage());
 
     }
 

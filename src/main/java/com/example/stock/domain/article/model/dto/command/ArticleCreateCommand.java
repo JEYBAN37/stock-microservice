@@ -16,7 +16,7 @@ public class ArticleCreateCommand {
     private Long id;
     private String name;
     private String description;
-    private int quantity;
+    private Integer quantity;
     private BigDecimal price;
     private Long brand;
     private List<Long> articleCategories;
