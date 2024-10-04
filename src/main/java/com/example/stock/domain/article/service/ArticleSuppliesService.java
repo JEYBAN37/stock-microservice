@@ -7,12 +7,11 @@ import com.example.stock.domain.article.port.dao.ArticleDao;
 import com.example.stock.domain.article.port.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
 
+import static com.example.stock.domain.article.model.constant.ArticleConstant.*;
+
 
 @AllArgsConstructor
 public class ArticleSuppliesService {
-    private static final String MESSAGE_ERROR_UPDATE = "Article No Exist";
-    private static final String MESSAGE_ERROR_LIST_EMPTY = "Supplies Empty";
-    private static final String MESSAGE_ERROR_QUANTITY = "Quantity invalid";
 
     private final ArticleDao articleDao;
     private final ArticleRepository articleRepository;
@@ -52,9 +51,7 @@ public class ArticleSuppliesService {
             throw new ArticleException(MESSAGE_ERROR_QUANTITY);
         }
 
-        if (articleSupplyCommand.getPrice() == null ||
-                String.valueOf(articleSupplyCommand.getPrice()).isEmpty()
-        )
+        if (articleSupplyCommand.getPrice() == null)
             articleSupplyCommand.setPrice(articleFound.getPrice());
     }
 

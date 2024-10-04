@@ -10,7 +10,6 @@ import static com.example.stock.domain.static_variables.StaticData.*;
 public class ArticleQuantity {
     Integer quantity;
     private ArticleQuantity(int quantity) {
-        toValidQuantity(quantity);
         this.quantity = quantity;
     }
     public static ArticleQuantity of (Integer quantity){

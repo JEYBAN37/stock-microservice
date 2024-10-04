@@ -2,6 +2,7 @@ package com.example.stock.infrastructure.segure;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -10,9 +11,10 @@ import java.util.function.Function;
 
 @Component
 public class JwtClient {
-
-    private static final String SECRET_KEY = "294A404E635266556A586E327235753878214125442A472D4B6150645367566B";
-
+    private final String secretKey;
+    public JwtClient (@Value("${jwt.secret-key}") String secretKey){
+        this.secretKey = secretKey;
+    }
 
     public List<String> extractRoles(String token) {
         return extractClaim(token, claims -> claims.get("roles", List.class));
@@ -42,7 +44,7 @@ public class JwtClient {
 
 
     private Key getSignInKey() {
-        byte[] keyBytes = hexStringToByteArray(SECRET_KEY);
+        byte[] keyBytes = hexStringToByteArray(secretKey);
         return io.jsonwebtoken.security.Keys.hmacShaKeyFor(keyBytes);
     }
 

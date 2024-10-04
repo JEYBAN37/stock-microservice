@@ -25,7 +25,7 @@ public class ArticleName {
         if(name == null || name.isEmpty())
             throw new ArticleException(NAME_MANDATORY);
         String nameTrip = name.trim().toUpperCase();
-        if(name.length() > MAXIMUM_ALLOW_LETTERS)
+        if(nameTrip.length() > MAXIMUM_ALLOW_LETTERS)
             throw new ArticleException(NAME_MAX_ERROR);
         return nameTrip;
     }

@@ -46,6 +46,4 @@ private void validateParams (ArticleCreateCommand createCommand){
     if (createCommand.getBrand() == null )
         throw new ArticleException(MESSAGE_ERROR_BRAND);
 }
-
-
 }
