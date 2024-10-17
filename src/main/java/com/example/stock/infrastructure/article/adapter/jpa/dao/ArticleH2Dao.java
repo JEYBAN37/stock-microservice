@@ -45,6 +45,14 @@ public class ArticleH2Dao implements ArticleDao {
     }
 
     @Override
+    public List<Article> getAllByIds(List<Long> ids) {
+        return articleSpringJpaAdapterRepository.findByIds(ids)
+                .stream()
+                .map(articleDboMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand,
                                 String byCategory)
     {

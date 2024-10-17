@@ -1,6 +1,7 @@
 package com.example.stock.application.articule.mapper;
 
 
+import com.example.stock.domain.article.model.dto.ArticleCarDto;
 import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.article.model.entity.Article;
 import org.mapstruct.Mapper;
@@ -14,4 +15,10 @@ public interface ArticleDtoMapper {
     @Mapping(source = "brand", target = "brand")
     @Mapping(source = "articleCategories", target = "articleCategories")
     ArticleDto toDto (Article objectOfDomain);
+
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "quantity", target = "quantity")
+    @Mapping(source = "articleCategories", target = "articleCategories")
+    ArticleCarDto cartoDto(Article objectOfDomain);
 }

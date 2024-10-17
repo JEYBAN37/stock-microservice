@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,5 +18,8 @@ public interface ArticleSpringJpaAdapterRepository extends JpaRepository<Article
     Optional<ArticleEntity> findByIdWithCategories(@Param("id") Long id);
     ArticleEntity findByName(String name);
     boolean existsByName(String name);
+    @Query("SELECT a FROM ArticleEntity a JOIN FETCH a.articleCategories WHERE a.id IN :ids")
+    List<ArticleEntity> findByIds(@Param("ids") List<Long> ids);
+
 
 }

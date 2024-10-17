@@ -1,5 +1,6 @@
 package com.example.stock.application.articule.query;
 
+import com.example.stock.application.articule.mapper.ArticleDtoMapper;
 import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.article.service.ArticleFilterService;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 @Component
 public class ArticleGetAll {
     private final ArticleFilterService articleFilterService;
+    private final ArticleDtoMapper articleDtoMapper;
     public List<ArticleDto> execute (Integer page,
                                      Integer size,
                                      Boolean ascending,
@@ -29,7 +31,10 @@ public class ArticleGetAll {
                 isAscending,
                 byName,
                 byBrand,
-                byCategory);
+                byCategory)
+                .stream()
+                .map(articleDtoMapper::toDto)
+                .toList();
     }
 
 }

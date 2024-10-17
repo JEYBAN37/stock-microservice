@@ -1,6 +1,5 @@
 package com.example.stock.infrastructure.beanconfiguration;
 
-import com.example.stock.application.brand.mapper.BrandDtoMapper;
 import com.example.stock.domain.brand.port.dao.BrandDao;
 import com.example.stock.domain.brand.port.repository.BrandRepository;
 import com.example.stock.domain.brand.service.BrandCreateService;
@@ -15,9 +14,10 @@ public class BrandBean {
         return new BrandCreateService(brandRepository,brandDao);
     }
     @Bean
-    public BrandFilterService brandFilterService(BrandDtoMapper brandDtoMapper, BrandDao brandDao){
-        return new BrandFilterService(brandDtoMapper,brandDao);
+    public BrandFilterService brandFilterService( BrandDao brandDao){
+        return new BrandFilterService(brandDao);
     }
+
 
 }
 

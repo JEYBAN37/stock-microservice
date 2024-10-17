@@ -3,6 +3,8 @@ package com.example.stock.infrastructure.article.rest.controller;
 
 import com.example.stock.application.articule.query.ArticleByName;
 import com.example.stock.application.articule.query.ArticleGetAll;
+import com.example.stock.application.articule.query.ArticleGetById;
+import com.example.stock.domain.article.model.dto.ArticleCarDto;
 import com.example.stock.domain.article.model.dto.ArticleDto;
 import com.example.stock.domain.category.model.dto.CategoryDto;
 
@@ -20,12 +22,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/secure/articles")
+@RequestMapping("/")
 @AllArgsConstructor
 @Tag(name ="Article Query Controller")
 public class ArticleQueryController {
     private final ArticleByName articleByName;
     private final ArticleGetAll articleGetAll;
+    private final ArticleGetById articleGetById;
     @Operation(summary = "Get Article by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "article returned",
@@ -34,7 +37,7 @@ public class ArticleQueryController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content)
     })
-    @GetMapping("/name/{name}")
+    @GetMapping("secure/{name}")
     public ArticleDto getByName(@PathVariable String name){
         return articleByName.execute(name);}
 
@@ -46,7 +49,7 @@ public class ArticleQueryController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content)
     })
-    @GetMapping("/")
+    @GetMapping("secure/articles/")
     public List<ArticleDto> getAll(@RequestParam() int page,
                                    @RequestParam() int size,
                                    @RequestParam() boolean ascending,
@@ -56,4 +59,19 @@ public class ArticleQueryController {
                                    ) {
         return articleGetAll.execute(page, size, ascending,byName,byBrand,byCategory);
     }
+
+    @Operation(summary = "Get All By Id Articles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Articles returned",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ArticleDto.class)))),
+            @ApiResponse(responseCode = "404", description = "No data found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content)
+    })
+    @PostMapping("secure/car/articles")
+    public List<ArticleCarDto> getAll(@RequestBody List<Long> ids) {
+        return articleGetById.execute(ids);
+    }
+
+
 }

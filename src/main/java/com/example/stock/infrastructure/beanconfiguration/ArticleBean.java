@@ -1,10 +1,10 @@
 package com.example.stock.infrastructure.beanconfiguration;
 
-import com.example.stock.application.articule.mapper.ArticleDtoMapper;
 import com.example.stock.domain.article.port.dao.ArticleDao;
 import com.example.stock.domain.article.port.repository.ArticleRepository;
 import com.example.stock.domain.article.service.ArticleCreateService;
 import com.example.stock.domain.article.service.ArticleFilterService;
+import com.example.stock.domain.article.service.ArticleGetByIdsService;
 import com.example.stock.domain.article.service.ArticleSuppliesService;
 import com.example.stock.domain.brand.port.dao.BrandDao;
 import com.example.stock.domain.category.service.CategoryListArticle;
@@ -34,13 +34,19 @@ public class ArticleBean{
         return new ArticleCreateService(articleRepository,articleDao,categoryListArticle,brandDao);
     }
    @Bean
-    public ArticleFilterService articleFilterService (ArticleDtoMapper articleDtoMapper,ArticleDao articleDao){
-        return new ArticleFilterService(articleDtoMapper,articleDao);
+    public ArticleFilterService articleFilterService (ArticleDao articleDao){
+        return new ArticleFilterService(articleDao);
     }
     @Bean
     public ArticleSuppliesService articleSuppliesService (ArticleRepository articleRepository, ArticleDao articleDao){
         return new ArticleSuppliesService(articleDao,articleRepository);
     }
+
+    @Bean
+    public ArticleGetByIdsService articleGetByIdsService (ArticleDao articleDao){
+        return new ArticleGetByIdsService(articleDao);
+    }
+
 
     @Bean
     public Queue queue() {
