@@ -4,8 +4,9 @@ package com.example.stock.infrastructure.article.rest.controller;
 import com.example.stock.application.articule.query.ArticleByName;
 import com.example.stock.application.articule.query.ArticleGetAll;
 import com.example.stock.application.articule.query.ArticleGetById;
-import com.example.stock.domain.article.model.dto.ArticleCarDto;
+import com.example.stock.application.articule.query.ArticleGetSale;
 import com.example.stock.domain.article.model.dto.ArticleDto;
+import com.example.stock.domain.article.model.dto.command.ArticleSaleCommand;
 import com.example.stock.domain.category.model.dto.CategoryDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +30,7 @@ public class ArticleQueryController {
     private final ArticleByName articleByName;
     private final ArticleGetAll articleGetAll;
     private final ArticleGetById articleGetById;
+    private final ArticleGetSale articleGetSale;
     @Operation(summary = "Get Article by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "article returned",
@@ -60,7 +62,7 @@ public class ArticleQueryController {
         return articleGetAll.execute(page, size, ascending,byName,byBrand,byCategory);
     }
 
-    @Operation(summary = "Get All By Id Articles")
+    @Operation(summary = "Get All By Id Articles for Sale")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Articles returned",
                     content = @Content(mediaType = "application/json",
@@ -68,9 +70,21 @@ public class ArticleQueryController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content)
     })
-    @PostMapping("secure/car/articles")
-    public List<ArticleCarDto> getAll(@RequestBody List<Long> ids) {
-        return articleGetById.execute(ids);
+
+    @PostMapping("secure/car/articles/")
+    public List<ArticleDto> getAll(@RequestBody List<Long> ids,
+                                      @RequestParam() int page,
+                                      @RequestParam() int size,
+                                      @RequestParam() boolean ascending,
+                                      @RequestParam(required = false) String byName,
+                                      @RequestParam(required = false) String byBrand,
+                                      @RequestParam(required = false) String byCategory) {
+        return articleGetById.execute(ids,page, size, ascending,byName,byBrand,byCategory);
+    }
+
+    @PostMapping("secure/sales/articles/")
+    public List<ArticleDto> getAllSale(@RequestBody List<ArticleSaleCommand> articleSaleCommands) {
+        return articleGetSale.execute(articleSaleCommands);
     }
 
 

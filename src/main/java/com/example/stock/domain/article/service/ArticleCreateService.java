@@ -29,7 +29,7 @@ public class ArticleCreateService {
         Article articleToCreate = new Article().requestToCreate(
                 createCommand,
                 categoryListArticle.execute(createCommand.getArticleCategories()),
-                brandArticle
+                brandArticle 
         );
 
         return articleRepository.create(articleToCreate);

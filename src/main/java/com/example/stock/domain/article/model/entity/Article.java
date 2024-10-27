@@ -4,6 +4,7 @@ import com.example.stock.domain.brand.model.entity.Brand;
 import com.example.stock.domain.category.model.entity.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -50,6 +51,10 @@ public class Article {
     public int getQuantity (){return quantity.getQuantity();}
     public BigDecimal getPrice() {
         return price.getPrice();
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = ArticleQuantity.of(quantity);
     }
 
 }

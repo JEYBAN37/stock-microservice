@@ -1,5 +1,6 @@
 package com.example.stock.domain.article.model.dto;
 
+import com.example.stock.domain.brand.model.dto.BrandDtoArticle;
 import com.example.stock.domain.category.model.dto.CategoryDtoArticle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,5 +17,6 @@ import java.util.List;
 public class ArticleCarDto {
     private Long id;
     private int quantity;
+    private BrandDtoArticle brand;
     private List<CategoryDtoArticle> articleCategories;
 }

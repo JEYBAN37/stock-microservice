@@ -54,7 +54,7 @@ void execute_ValidInput_ReturnsCategoryDtoList() {
     when(categoryDtoMapper.toDto(category2)).thenReturn(categoryDto2);
 
     // Act
-    List<CategoryDto> result = categoryFilterService.execute(page, size, ascending);
+    List<Category> result = categoryFilterService.execute(page, size, ascending);
 
     // Assert
     assertNotNull(result);

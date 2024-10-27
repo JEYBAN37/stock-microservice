@@ -45,8 +45,15 @@ public class ArticleH2Dao implements ArticleDao {
     }
 
     @Override
-    public List<Article> getAllByIds(List<Long> ids) {
-        return articleSpringJpaAdapterRepository.findByIds(ids)
+    public List<Article> getAllByIds(List<Long> ids, int page, int size, boolean ascending, String byName, String byBrand, String byCategory) {
+        ArticleSpecification spec = new ArticleSpecification(byName,byBrand,byCategory);
+        Specification<ArticleEntity> specification = Specification.where(ArticleSpecification.hasIdIn(ids))
+                .and(spec.toSpecification());
+
+        PageRequest pageable = PageRequest.of(page, size, Sort
+                .by(ascending ? Sort.Direction.ASC : Sort.Direction.DESC, NAME));
+
+        return articleSpringJpaAdapterRepository.findAll(specification, pageable)
                 .stream()
                 .map(articleDboMapper::toDomain)
                 .toList();
@@ -54,8 +61,7 @@ public class ArticleH2Dao implements ArticleDao {
 
     @Override
     public List<Article> getAll(int page, int size, boolean ascending, String byName, String byBrand,
-                                String byCategory)
-    {
+                                String byCategory) {
         ArticleSpecification spec = new ArticleSpecification(byName,byBrand,byCategory);
         Specification<ArticleEntity> specification = spec.toSpecification();
 
@@ -66,7 +72,6 @@ public class ArticleH2Dao implements ArticleDao {
                 .map(articleDboMapper::toDomain)
                 .toList();
     }
-
     @Override
     public boolean nameExist(String name) {
         return articleSpringJpaAdapterRepository.existsByName(name);
@@ -75,6 +80,16 @@ public class ArticleH2Dao implements ArticleDao {
     @Override
     public boolean idExist(Long id) {
         return articleSpringJpaAdapterRepository.existsById(id);
+    }
+
+    @Override
+    public List<Article> getAllBySales(List<Long> ids) {
+        Specification<ArticleEntity> specification = Specification.where(ArticleSpecification.hasIdIn(ids));
+        return articleSpringJpaAdapterRepository.findAll(specification)
+                .stream()
+                .map(articleDboMapper::toDomain)
+                .toList();
+
     }
 
 }

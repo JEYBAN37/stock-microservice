@@ -20,7 +20,12 @@ public class ArticleSpecification {
     private final String byBrand;
     private final String byCategory;
 
+    public static Specification<ArticleEntity> hasIdIn(List<Long> ids) {
+        return (root, query, criteriaBuilder) -> root.get("id").in(ids);
+    }
+
     public Specification<ArticleEntity> toSpecification() {
+
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

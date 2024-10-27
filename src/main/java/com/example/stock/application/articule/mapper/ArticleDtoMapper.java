@@ -19,6 +19,7 @@ public interface ArticleDtoMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "quantity", target = "quantity")
+    @Mapping(source = "brand", target = "brand")
     @Mapping(source = "articleCategories", target = "articleCategories")
     ArticleCarDto cartoDto(Article objectOfDomain);
 }

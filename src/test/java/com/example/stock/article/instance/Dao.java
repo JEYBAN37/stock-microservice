@@ -30,6 +30,17 @@ public class Dao implements ArticleDao {
     }
 
     @Override
+    public List<Article> getAllBySales(List<Long> ids) {
+        return List.of();
+    }
+
+    @Override
+    public List<Article> getAllByIds(List<Long> ids, int page, int size, boolean ascending, String byName, String byBrand, String byCategory) {
+        return List.of();
+    }
+
+
+    @Override
     public boolean nameExist(String name) {
         return ArticleList.stream().anyMatch(n -> n.getName().equals(name));
     }

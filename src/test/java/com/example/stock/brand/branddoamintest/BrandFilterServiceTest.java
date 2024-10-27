@@ -44,7 +44,7 @@ class BrandFilterServiceTest {
         when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);
         when(brandDtoMapper.toDto(brand2)).thenReturn(brandDto2);
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 10, true);
+        List<Brand> result = brandFilterService.execute(0, 10, true);
         // assert
         assertEquals(expectedDtos.size(), result.size());
         assertEquals(expectedDtos.get(0).getName(), result.get(0).getName());
@@ -55,7 +55,7 @@ class BrandFilterServiceTest {
         // arrange
         when(brandDao.getAll(0, 10, true)).thenReturn(List.of());
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 10, true);
+        List<Brand> result = brandFilterService.execute(0, 10, true);
         // assert
         assertEquals(0, result.size());
     }
@@ -70,44 +70,44 @@ class BrandFilterServiceTest {
         when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);
         when(brandDtoMapper.toDto(brand2)).thenReturn(brandDto2);
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 10, true);
+        List<Brand> result = brandFilterService.execute(0, 10, true);
         // assert
-        assertEquals("Article A", result.get(0).getName());
-        assertEquals("Article B", result.get(1).getName());
+        assertEquals("ARTICLE A", result.get(0).getName());
+        assertEquals("ARTICLE B", result.get(1).getName());
     }
 
     @Test
     void execute_shouldReturnBrandsInDescendingOrder() {
         // arrange
-        Brand brand1 = new Brand(1L, "Article A", "Description A");
-        Brand brand2 = new Brand(2L, "Article B", "Description B");
-        BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
-        BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
+        Brand brand1 = new Brand(1L, "ARTICLE A", "Description A");
+        Brand brand2 = new Brand(2L, "ARTICLE B", "Description B");
+        BrandDto brandDto1 = new BrandDto( 1L,"ARTICLE A", "Description A");
+        BrandDto brandDto2 = new BrandDto( 1L,"ARTICLE B", "Description B");
         when(brandDao.getAll(0, 10, false)).thenReturn(List.of(brand2, brand1));
         when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);
         when(brandDtoMapper.toDto(brand2)).thenReturn(brandDto2);
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 10, false);
+        List<Brand> result = brandFilterService.execute(0, 10, false);
         // assert
-        assertEquals("Article B", result.get(0).getName());
-        assertEquals("Article A", result.get(1).getName());
+        assertEquals("ARTICLE B", result.get(0).getName());
+        assertEquals("ARTICLE A", result.get(1).getName());
     }
     @Test
     void execute_shouldCallMapperForEachBrand() {
         // arrange
-        Brand brand1 = new Brand(1L, "Article A", "Description A");
-        Brand brand2 = new Brand(2L, "Article B", "Description B");
+        Brand brand1 = new Brand(1L, "ARTICLE A", "Description A");
+        Brand brand2 = new Brand(2L, "ARTICLE B", "Description B");
         BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
         BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
         when(brandDao.getAll(0, 10, true)).thenReturn(List.of(brand1, brand2));
         when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);
         when(brandDtoMapper.toDto(brand2)).thenReturn(brandDto2);
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 10, true);
+        List<Brand> result = brandFilterService.execute(0, 10, true);
         // assert
         assertEquals(2, result.size());
-        assertEquals("Article A", result.get(0).getName());
-        assertEquals("Article B", result.get(1).getName());
+        assertEquals("ARTICLE A", result.get(0).getName());
+        assertEquals("ARTICLE B", result.get(1).getName());
     }
     @Test
     void execute_shouldHandleDifferentPageSizes() {
@@ -116,13 +116,13 @@ class BrandFilterServiceTest {
         Brand brand2 = new Brand(2L, "Article B", "Description B");
         BrandDto brandDto1 = new BrandDto( 1L,"Article A", "Description A");
         BrandDto brandDto2 = new BrandDto( 1L,"Article B", "Description B");
-        when(brandDao.getAll(0, 1, true)).thenReturn(List.of(brand1));
-        when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1);
+        when(brandDao.getAll(0, 1, true)).thenReturn(List.of(brand1,brand2));
+        when(brandDtoMapper.toDto(brand1)).thenReturn(brandDto1,brandDto2);
         // act
-        List<BrandDto> result = brandFilterService.execute(0, 1, true);
+        List<Brand> result = brandFilterService.execute(0, 1, true);
         // assert
         assertEquals(1, result.size());
-        assertEquals("Article A", result.get(0).getName());
+        assertEquals("ARTICLE A", result.get(0).getName());
     }
 
 

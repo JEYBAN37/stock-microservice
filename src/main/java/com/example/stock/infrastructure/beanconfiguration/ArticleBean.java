@@ -2,10 +2,7 @@ package com.example.stock.infrastructure.beanconfiguration;
 
 import com.example.stock.domain.article.port.dao.ArticleDao;
 import com.example.stock.domain.article.port.repository.ArticleRepository;
-import com.example.stock.domain.article.service.ArticleCreateService;
-import com.example.stock.domain.article.service.ArticleFilterService;
-import com.example.stock.domain.article.service.ArticleGetByIdsService;
-import com.example.stock.domain.article.service.ArticleSuppliesService;
+import com.example.stock.domain.article.service.*;
 import com.example.stock.domain.brand.port.dao.BrandDao;
 import com.example.stock.domain.category.service.CategoryListArticle;
 
@@ -47,8 +44,15 @@ public class ArticleBean{
         return new ArticleGetByIdsService(articleDao);
     }
 
-
     @Bean
+    public ArticleSaleService articleSaleService (ArticleRepository articleRepository, ArticleDao articleDao){
+        return new ArticleSaleService(articleDao,articleRepository);
+
+    }
+
+
+
+        @Bean
     public Queue queue() {
         return new Queue(QUEUE_NAME, true);
     }

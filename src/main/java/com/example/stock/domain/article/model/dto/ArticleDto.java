@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ArticleDto {
+    private Long id;
     private String name;
     private String description;
     private int quantity;

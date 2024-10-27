@@ -49,7 +49,7 @@ import static org.mockito.Mockito.*;
         when(articleDtoMapper.toDto(any())).thenReturn(articleDtos.get(0));
 
         // act
-        List<ArticleDto> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
+        List<Article> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
 
         // assert
         assertNotNull(result);
@@ -95,7 +95,7 @@ import static org.mockito.Mockito.*;
        when(articleDtoMapper.toDto(article1)).thenReturn(articleDto1);
        when(articleDtoMapper.toDto(article2)).thenReturn(articleDto2);
 
-       List<ArticleDto> result = articleFilterService.execute(1, 5, false, "name1", "brand1", "category1");
+       List<Article> result = articleFilterService.execute(1, 5, false, "name1", "brand1", "category1");
 
        assertEquals(2, result.size());
        assertEquals(articleDto1, result.get(0));
@@ -125,7 +125,7 @@ import static org.mockito.Mockito.*;
                .thenReturn(articleDto);
 
        // act
-       List<ArticleDto> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
+       List<Article> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
 
        // assert
        assertEquals(1, result.size());

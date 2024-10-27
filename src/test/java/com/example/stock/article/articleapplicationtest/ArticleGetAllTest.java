@@ -2,6 +2,7 @@ package com.example.stock.article.articleapplicationtest;
 
 import com.example.stock.application.articule.query.ArticleGetAll;
 import com.example.stock.domain.article.model.dto.ArticleDto;
+import com.example.stock.domain.article.model.entity.Article;
 import com.example.stock.domain.article.service.ArticleFilterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class ArticleGetAllTest {
         String byBrand = "testBrand";
         String byCategory = "testCategory";
 
-        List<ArticleDto> expectedArticles = List.of(new ArticleDto());
+        List<Article> expectedArticles = List.of(new Article());
 
         when(articleFilterService.execute(anyInt(), anyInt(), anyBoolean(), anyString(), anyString(), anyString()))
                 .thenReturn(expectedArticles);
@@ -75,7 +76,7 @@ public class ArticleGetAllTest {
         String byBrand = "testBrand";
         String byCategory = "testCategory";
 
-        List<ArticleDto> expectedArticles = List.of(new ArticleDto());
+        List<Article> expectedArticles = List.of(new Article());
 
         when(articleFilterService.execute(0, 10, ascending, byName, byBrand, byCategory))
                 .thenReturn(expectedArticles);
@@ -97,7 +98,7 @@ public class ArticleGetAllTest {
         String byBrand = "testBrand";
         String byCategory = "testCategory";
 
-        List<ArticleDto> expectedArticles = List.of(new ArticleDto());
+        List<Article> expectedArticles = List.of(new Article());
 
         when(articleFilterService.execute(page, size, false, byName, byBrand, byCategory))
                 .thenReturn(expectedArticles);
@@ -111,7 +112,7 @@ public class ArticleGetAllTest {
     @Test
      void articleGetAll_whenExecuteWithAllNullParameters() {
         // arrange
-        List<ArticleDto> expectedArticles = List.of(new ArticleDto());
+        List<Article> expectedArticles = List.of(new Article());
 
         when(articleFilterService.execute(0, 10, false, null, null, null))
                 .thenReturn(expectedArticles);
@@ -130,7 +131,7 @@ public class ArticleGetAllTest {
         String byName = "testName";
         Boolean ascending = true;
 
-        List<ArticleDto> expectedArticles = List.of(new ArticleDto());
+        List<Article> expectedArticles = List.of(new Article());
 
         when(articleFilterService.execute(page, 10, ascending, byName, null, null))
                 .thenReturn(expectedArticles);
