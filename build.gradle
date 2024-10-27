@@ -31,6 +31,7 @@ dependencies {
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
 	implementation 'mysql:mysql-connector-java:8.0.33'
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	testImplementation 'org.springframework.security:spring-security-test'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.3.3'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
