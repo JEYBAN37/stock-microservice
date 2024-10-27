@@ -38,7 +38,7 @@ class ArticleByNameTest {
         // Arrange
         String articleName = "SampleArticle";
         Article article = new Article(1L, articleName, "Sample Description", 10, new BigDecimal(100.0), new Brand(), null);
-        ArticleDto articleDto = new ArticleDto( articleName, "Sample Description", 10, new BigDecimal(100.0), new BrandDtoArticle(), null);
+        ArticleDto articleDto = new ArticleDto( 1L,articleName, "Sample Description", 10, new BigDecimal(100.0), new BrandDtoArticle(), null);
 
         when(articleDao.getByName(articleName)).thenReturn(article);
         when(articleDtoMapper.toDto(article)).thenReturn(articleDto);

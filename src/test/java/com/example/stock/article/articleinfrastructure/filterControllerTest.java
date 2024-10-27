@@ -36,8 +36,8 @@ class filterControllerTest {
     void getAll_shouldReturnArticles() {
         BigDecimal price1 = new BigDecimal("19.99");
         // arrange
-        ArticleDto articleDto1 = new ArticleDto("Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
-        ArticleDto articleDto2 = new ArticleDto("Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto1 = new ArticleDto(1L,"Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto2 = new ArticleDto(2l,"Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
         List<ArticleDto> expectedArticles = List.of(articleDto1, articleDto2);
         when(articleGetAll.execute(0, 10, true, "Article", "Brand", "Category")).thenReturn(expectedArticles);
         // act
@@ -60,8 +60,8 @@ class filterControllerTest {
     void getAll_shouldReturnArticlesInAscendingOrder() {
         BigDecimal price1 = new BigDecimal("19.99");
         // arrange
-        ArticleDto articleDto1 =  new ArticleDto("Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
-        ArticleDto articleDto2 = new ArticleDto("Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto1 =  new ArticleDto(1L,"Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto2 = new ArticleDto(2L,"Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
         List<ArticleDto> expectedArticles = List.of(articleDto1, articleDto2);
         when(articleGetAll.execute(0, 10, true, null, null, null)).thenReturn(expectedArticles);
         // act
@@ -74,8 +74,8 @@ class filterControllerTest {
     void getAll_shouldReturnArticlesInDescendingOrder() {
         BigDecimal price1 = new BigDecimal("19.99");
         // arrange
-        ArticleDto articleDto1 =  new ArticleDto("Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
-        ArticleDto articleDto2 = new ArticleDto("Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto1 =  new ArticleDto(1L,"Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto2 = new ArticleDto(2L,"Article B", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
         List<ArticleDto> expectedArticles = List.of(articleDto1, articleDto2);
         when(articleGetAll.execute(0, 10, false, null, null, null)).thenReturn(expectedArticles);
         // act
@@ -88,7 +88,8 @@ class filterControllerTest {
     void getAll_shouldFilterByNameBrandAndCategory() {
         BigDecimal price1 = new BigDecimal("19.99");
         // arrange
-        ArticleDto articleDto1 =  new ArticleDto("Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+        ArticleDto articleDto1 =  new ArticleDto(1L,"Article A", "Description",5,price1,new BrandDtoArticle(),new CategoryDtoArticle[]{new CategoryDtoArticle()});
+
         List<ArticleDto> expectedArticles = List.of(articleDto1);
         when(articleGetAll.execute(0, 10, true, "Article A", "Brand A", "Category A")).thenReturn(expectedArticles);
         // act

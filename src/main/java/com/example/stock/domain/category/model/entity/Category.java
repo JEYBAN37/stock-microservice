@@ -22,6 +22,7 @@ public class Category {
         this.description =  CategoryDescription.of(categoryCreateCommand.getDescription());
         return this;
     }
+
     public String getName() {
         return name.getName();
     }

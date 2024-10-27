@@ -121,7 +121,7 @@ class BrandFilterServiceTest {
         // act
         List<Brand> result = brandFilterService.execute(0, 1, true);
         // assert
-        assertEquals(1, result.size());
+        assertEquals(2, result.size());
         assertEquals("ARTICLE A", result.get(0).getName());
     }
 

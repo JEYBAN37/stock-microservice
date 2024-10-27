@@ -12,13 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
- class CategoryGetAllHandlreTest {
+import static org.mockito.Mockito.*;
+
+class CategoryGetAllHandlreTest {
     @Mock
     private CategoryDao categoryDao;
 
@@ -35,33 +35,6 @@ import static org.mockito.Mockito.when;
         MockitoAnnotations.openMocks(this);
     }
 
-     @Test
-     void execute_shouldReturnCategoriesInAscendingOrder() {
-         // Arrange
-         Category categoryDto1 = new Category(1L, "Category A", "Description A");
-         Category categoryDto2 = new Category( 2L,"Category B", "Description B");
-         List<Category> expectedCategories = Arrays.asList(categoryDto1, categoryDto2);
-         when(categoryFilterService.execute(0, 10, true)).thenReturn(expectedCategories);
-         // Act
-         List<CategoryDto> result = categoryAllHandler.execute(0, 10, true);
-         // Assert
-         assertEquals(expectedCategories, result);
-     }
-
-
-     @Test
-     void execute_shouldReturnCategoriesInDescendingOrder() {
-         // Arrange
-         Category categoryDto1 = new Category( 1L,"Category A", "Description A");
-         Category categoryDto2 = new Category( 2L,"Category B", "Description B");
-         List<Category> expectedCategories = Arrays.asList(categoryDto2, categoryDto1);
-         when(categoryFilterService.execute(0, 10, false)).thenReturn(expectedCategories);
-         // Act
-         List<CategoryDto> result = categoryAllHandler.execute(0, 10, false);
-
-         // Assert
-         assertEquals(expectedCategories, result);
-     }
 
      @Test
      void execute_shouldReturnEmptyListWhenNoCategories() {
@@ -73,4 +46,61 @@ import static org.mockito.Mockito.when;
          // Assert
          assertEquals(0, result.size());
      }
-}
+
+     @Test
+     void testExecuteWithDefaultValues() {
+         // Valores de entrada
+         Integer page = null;
+         Integer size = null;
+         Boolean ascending = null;
+
+         // Configurar el comportamiento del servicio simulado
+         List<Category> mockCategories = List.of(new Category(), new Category());
+         when(categoryFilterService.execute(anyInt(), anyInt(), anyBoolean())).thenReturn(mockCategories);
+
+         // Configurar el comportamiento del mapper
+         CategoryDto mockDto = new CategoryDto();
+         when(categoryDtoMapper.toDto(any())).thenReturn(mockDto);
+
+         // Ejecutar el método
+         List<CategoryDto> result = categoryAllHandler.execute(page, size, ascending);
+
+         // Verificar que el servicio fue llamado con los valores predeterminados
+         verify(categoryFilterService).execute(0, 10, false);
+
+         // Verificar que el mapper fue llamado para cada categoría
+         verify(categoryDtoMapper, times(mockCategories.size())).toDto(any(Category.class));
+
+         // Comprobar el resultado
+         assertEquals(mockCategories.size(), result.size());
+     }
+
+     @Test
+     void testExecuteWithCustomValues() {
+         // Valores de entrada personalizados
+         Integer page = 1;
+         Integer size = 5;
+         Boolean ascending = true;
+
+         // Configurar el comportamiento del servicio simulado
+         List<Category> mockCategories = List.of(new Category(), new Category(), new Category());
+         when(categoryFilterService.execute(page, size, ascending)).thenReturn(mockCategories);
+
+         // Configurar el comportamiento del mapper
+         CategoryDto mockDto = new CategoryDto();
+         when(categoryDtoMapper.toDto(any())).thenReturn(mockDto);
+
+         // Ejecutar el método
+         List<CategoryDto> result = categoryAllHandler.execute(page, size, ascending);
+
+         // Verificar que el servicio fue llamado con los valores personalizados
+         verify(categoryFilterService).execute(page, size, ascending);
+
+         // Verificar que el mapper fue llamado para cada categoría
+         verify(categoryDtoMapper, times(mockCategories.size())).toDto(any(Category.class));
+
+         // Comprobar el resultado
+         assertEquals(mockCategories.size(), result.size());
+     }
+
+ }

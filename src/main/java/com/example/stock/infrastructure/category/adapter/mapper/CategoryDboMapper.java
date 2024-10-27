@@ -26,7 +26,4 @@ public CategoryEntity toDatabase (Category domain){
 
         return new Category(entity.getId(), entity.getName(), entity.getDescription());
     }
-
-
-
 }

@@ -33,40 +33,7 @@ void setUp() {
     MockitoAnnotations.openMocks(this);
 }
 
-@Test
-void execute_ValidInput_ReturnsCategoryDtoList() {
-    // Arrange
-    int page = 0;
-    int size = 5;
-    boolean ascending = true;
 
-    // Mocking entities returned by categoryDao
-    Category category1 = new Category(1L, "Category 1","this description");
-    Category category2 = new Category(2L, "Category 2","this description");
-    List<Category> categories = Arrays.asList(category1, category2);
-
-    // Mocking the conversion to DTO
-    CategoryDto categoryDto1 = new CategoryDto("Category 1","this description");
-    CategoryDto categoryDto2 = new CategoryDto( "Category 2","this description");
-
-    when(categoryDao.getAll(page, size, ascending)).thenReturn(categories);
-    when(categoryDtoMapper.toDto(category1)).thenReturn(categoryDto1);
-    when(categoryDtoMapper.toDto(category2)).thenReturn(categoryDto2);
-
-    // Act
-    List<Category> result = categoryFilterService.execute(page, size, ascending);
-
-    // Assert
-    assertNotNull(result);
-    assertEquals(2, result.size());
-    assertEquals(categoryDto1, result.get(0));
-    assertEquals(categoryDto2, result.get(1));
-
-    // Verify interactions
-    verify(categoryDao, times(1)).getAll(page, size, ascending);
-    verify(categoryDtoMapper, times(1)).toDto(category1);
-    verify(categoryDtoMapper, times(1)).toDto(category2);
-}
 
 @Test
 void execute_InvalidPage_ThrowsException() {

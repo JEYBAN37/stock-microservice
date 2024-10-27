@@ -83,82 +83,40 @@ import static org.mockito.Mockito.*;
         assertEquals("Page index must be non-negative and size must be greater than zero.", exception.getErrorMessage());
     }
 
-    @Test
-     void filterService_differentParameters() {
-       Article article1 = new Article();
-       Article article2 = new Article();
-       ArticleDto articleDto1 = new ArticleDto();
-       ArticleDto articleDto2 = new ArticleDto();
 
-       when(articleDao.getAll(1, 5, false, "name1", "brand1", "category1"))
-               .thenReturn(List.of(article1, article2));
-       when(articleDtoMapper.toDto(article1)).thenReturn(articleDto1);
-       when(articleDtoMapper.toDto(article2)).thenReturn(articleDto2);
+     @Test
+     void testExecuteWithValidParameters() {
+         int page = 0;
+         int size = 10;
+         boolean ascending = true;
+         String byName = "ExampleName";
+         String byBrand = "ExampleBrand";
+         String byCategory = "ExampleCategory";
 
-       List<Article> result = articleFilterService.execute(1, 5, false, "name1", "brand1", "category1");
+         List<Article> mockArticles = Collections.singletonList(new Article());
+         when(articleDao.getAll(page, size, ascending, byName, byBrand, byCategory)).thenReturn(mockArticles);
 
-       assertEquals(2, result.size());
-       assertEquals(articleDto1, result.get(0));
-       assertEquals(articleDto2, result.get(1));
+         List<Article> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
 
-       verify(articleDao, times(1)).getAll(1, 5, false, "name1", "brand1", "category1");
-       verify(articleDtoMapper, times(1)).toDto(article1);
-       verify(articleDtoMapper, times(1)).toDto(article2);
-    }
+         assertEquals(mockArticles, result);
+         verify(articleDao, times(1)).getAll(page, size, ascending, byName, byBrand, byCategory);
+     }
 
-    @Test
-     void filterService_withLargePageAndSize() {
-       // arrange
-       int page = 100;
-       int size = 1000;
-       boolean ascending = true;
-       String byName = "test";
-       String byBrand = "brand";
-       String byCategory = "category";
+     @Test
+     void testExecuteWithNegativePage() {
+         int page = -1;
+         int size = 10;
+         boolean ascending = true;
 
-       Article article = new Article();
-       ArticleDto articleDto = new ArticleDto();
+         assertThrows(ArticleException.class, () -> articleFilterService.execute(page, size, ascending, null, null, null));
+     }
 
-       when(articleDao.getAll(page, size, ascending, byName, byBrand, byCategory))
-               .thenReturn(List.of(article));
-       when(articleDtoMapper.toDto(article))
-               .thenReturn(articleDto);
+     @Test
+     void testExecuteWithInvalidSize() {
+         int page = 0;
+         int size = 0;
+         boolean ascending = true;
 
-       // act
-       List<Article> result = articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory);
-
-       // assert
-       assertEquals(1, result.size());
-       assertEquals(articleDto, result.get(0));
-
-       verify(articleDao, times(1)).getAll(page, size, ascending, byName, byBrand, byCategory);
-       verify(articleDtoMapper, times(1)).toDto(article);
-    }
-
-
-    @Test
-    void testExecuteThrowsExceptionWhenDtoMapperFails() {
-       // arrange
-       int page = 0;
-       int size = 10;
-       boolean ascending = true;
-       String byName = "test";
-       String byBrand = "brand";
-       String byCategory = "category";
-
-       Article article = new Article();
-
-       when(articleDao.getAll(page, size, ascending, byName, byBrand, byCategory))
-               .thenReturn(List.of(article));
-
-       when(articleDtoMapper.toDto(article))
-               .thenThrow(new RuntimeException("Mapping error"));
-       // act y assert
-       RuntimeException exception = assertThrows(RuntimeException.class, () ->
-               articleFilterService.execute(page, size, ascending, byName, byBrand, byCategory)
-       );
-       assertEquals("Mapping error", exception.getMessage());
-       verify(articleDao, times(1)).getAll(page, size, ascending, byName, byBrand, byCategory);
-       verify(articleDtoMapper, times(1)).toDto(article); // El mapeador debería haber sido llamado
-    }
+         assertThrows(ArticleException.class, () -> articleFilterService.execute(page, size, ascending, null, null, null));
+     }
 }
