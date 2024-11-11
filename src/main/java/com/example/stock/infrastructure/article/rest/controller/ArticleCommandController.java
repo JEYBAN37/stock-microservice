@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @Tag(name ="Article Command Controller")
 public class ArticleCommandController {
     private final ArticleCreateHandler articleCreateHandler;
