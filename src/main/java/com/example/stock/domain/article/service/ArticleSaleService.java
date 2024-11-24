@@ -45,7 +45,7 @@ public class ArticleSaleService {
                         return null;
 
                     if (article.getQuantity() < articleSaleCommand.getQuantity())
-                        return null;
+                        return article;
 
                     article.setQuantity(article.getQuantity() - articleSaleCommand.getQuantity());
                     return article;
